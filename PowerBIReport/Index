@@ -1,1 +1,34 @@
+# 📊 Adventure Works - Power BI Report
+
+This project is a Power BI dashboard analyzing sales, products, returns, and customer behavior for a fictional company, Adventure Works. The report is based on CSV datasets and built entirely in Power BI Desktop.
+
+## 📄 Report Preview
+
+![Revenue Overview](./images/1.png)
+
+Key Metrics:
+- **Revenue:** $24.9M
+- **Profit:** $10.5M
+- **Return Rate:** 2.17%
+- **Top Products:** Helmets, Bottles, Tire Tubes
+- **Customer Insights:** Income segments, occupations, and loyalty
+
+## 📎 View the Full Report (PDF)
+
+🔗 [Download Adventure Works Report (PDF)](./Adventure Works project.pdf)
+
+> Note: This report is static due to Power BI licensing restrictions. You can open the `.pbix` in Power BI Desktop to interact with the full dataset and visuals.
+
+## 💾 Power BI Source File
+
+[Download AdventureWorks_Report.pbix](./Adventure Works project.pbix)
+
+---
+
+## 💡 Tools Used
+- Power BI Desktop
+- DAX Measures
+- Bookmarks
+- Report tooltips
+- Dynamic filtering
 
