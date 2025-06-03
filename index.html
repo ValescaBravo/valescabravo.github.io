@@ -6,32 +6,25 @@
   <title>Valesca Bravo Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="VB-photo.jpg" type="image/jpeg">
-  <meta name="description" content="Portfolio of Valesca Bravo - Data Analyst & Business Strategist">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { font-family: 'Inter', sans-serif; background-color: #fefefe; }
   </style>
 </head>
-
-<body class="bg-white text-gray-800">
-  <header class="w-full h-[400px] flex flex-col md:flex-row overflow-hidden relative">
-    <!-- Optional overlay for text contrast -->
-    <div class="absolute inset-0 bg-white/30 z-0"></div>
-
+<body class="text-gray-800">
+  <header class="w-full h-[400px] flex flex-col md:flex-row overflow-hidden">
     <!-- Green Left Side -->
-    <div class="w-full md:w-1/2 bg-[#91f19c] p-6 flex flex-col justify-center items-center text-center z-10">
+    <div class="w-full md:w-1/2 bg-[#91f19c] p-6 flex flex-col justify-center items-center text-center">
       <h1 class="text-3xl font-extrabold leading-tight">DATA-DRIVEN<br>INSIGHTS FOR<br>BUSINESS GROWTH</h1>
-      <p class="text-sm mt-4 max-w-xs"> Empowering decisions through data, strategy, and sustainable insights.</p>
-    
-      <div class="mt-4">
+      <p class="text-sm mt-4 max-w-xs">Empowering decisions through data, strategy, and sustainable insights.</p>
+      <div class="mt-4 text-center">
         <p class="font-semibold">Valesca Bravo</p>
         <p class="text-sm">Data Analyst | Business Strategist</p>
       </div>
     </div>
 
     <!-- Purple Right Side -->
-    <div class="w-full md:w-1/2 relative z-10">
-      <img src="picture3.png" alt="Analytics Visual" class="object-cover w-full h-full">
+    <div class="w-full md:w-1/2 relative">
+      <img src="picture.png" alt="Analytics Visual" class="object-cover w-full h-full">
     </div>
   </header>
 
@@ -42,36 +35,35 @@
       <p class="text-lg mt-2">Data Analyst | BI Enthusiast | Digital Marketer</p>
     </section>
 
+    <hr class="my-6 border-gray-300">
+
     <section id="projects" class="my-12">
       <h3 class="text-2xl font-semibold mb-4">🌟 Projects</h3>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="border p-4 rounded-lg shadow hover:shadow-md transition duration-300">
-          <h4 class="text-xl font-bold" style="color: #68479c;">
-            <a href="PowerBIReport/index.html" target="_blank">Adventure Works project</a>
-          </h4>
-          <p class="mt-2">Power BI dashboard analyzing sales, products, returns, and customer behavior for a fictional company.</p>
+        <div class="border p-4 rounded-lg shadow hover:shadow-xl transition">
+          <h4 class="text-xl font-bold text-[#68479c]">
+            <a href="PowerBIReport/index.html" target="_blank">Adventure Works project.</a></h4>
+          <p class="mt-2">Power BI dashboard analyzing sales, products, returns, and customer behavior for a fictional company, Adventure Works.</p>
         </div>
-        <div class="border p-4 rounded-lg shadow hover:shadow-md transition duration-300">
-          <h4 class="text-xl font-bold" style="color: #68479c;">
-            <a href="Travel-Agency/" target="_blank">Travel Agency ER Model</a>
-          </h4>
+        <div class="border p-4 rounded-lg shadow hover:shadow-xl transition">
+          <h4 class="text-xl font-bold text-[#68479c]">
+            <a href="Travel-Agency/" target="_blank">Travel Agency ER Model</a></h4>
           <p class="mt-2">Entity-relationship design with MySQL schema, use case scenario, and relational logic.</p>
         </div>
-        <div class="border p-4 rounded-lg shadow hover:shadow-md transition duration-300">
-          <h4 class="text-xl font-bold" style="color: #68479c;">
-            <a href="SMART/SA_Model.html" target="_blank">Sustainable Tourism Thesis</a>
-          </h4>
-          <p class="mt-2">Master's thesis applying clustering and regression to tourism sustainability indicators using Power BI and SQL.</p>
+        <div class="border p-4 rounded-lg shadow hover:shadow-xl transition">
+          <h4 class="text-xl font-bold text-[#68479c]">
+            <a href="SMART/SA_Model.html" target="_blank">Sustainable Tourism Thesis</a></h4>
+          <p class="mt-2">Master's thesis project applying clustering and regression to tourism sustainability indicators using Power BI and SQL.</p>
         </div>
       </div>
     </section>
 
-    <section id="resume" class="my-12 p-6 rounded-lg" style="background-color: white; color: black;">
+    <hr class="my-6 border-gray-300">
+
+    <section id="resume" class="my-12 bg-[#91f19c] p-6 rounded">
       <h3 class="text-2xl font-semibold mb-4">📄 Resume</h3>
-      <p>Insight-driven Data Analyst with a strong background in marketing, BI, and cloud analytics.</p>
-      <a href="VB-2025.pdf" target="_blank" class="inline-block mt-4 px-4 py-2 rounded hover:opacity-90" style="background-color: #91f19c; color: black;">
-        Download My Resume
-      </a>
+      <p>Insight-driven Data Analyst with a strong background in marketing, BI, and cloud analytics. </p>
+      <a href="VB-2025.pdf" target="_blank" class="inline-block mt-4 px-4 py-2 bg-[#5ce1e6] text-white rounded hover:bg-[#4ad0d5]">Download My Resume</a>
     </section>
 
     <section id="skills" class="my-12">
@@ -84,11 +76,13 @@
       </ul>
     </section>
 
+    <hr class="my-6 border-gray-300">
+
     <section id="contact" class="my-12">
       <h3 class="text-2xl font-semibold mb-4">📧 Contact</h3>
-      <p>Email: <a href="mailto:bravo.valesca@gmail.com" class="text-blue-700 hover:underline">bravo.valesca@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/ValescaBravo" class="text-blue-700 hover:underline">github.com/ValescaBravo</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/valesca-bravo" class="text-blue-700 hover:underline">linkedin.com/in/valesca-bravo</a></p>
+      <p>Email: <a href="mailto:bravo.valesca@gmail.com" class="text-[#5ce1e6] hover:underline">bravo.valesca@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/ValescaBravo" class="text-[#5ce1e6] hover:underline">github.com/ValescaBravo</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/valesca-bravo" class="text-[#5ce1e6] hover:underline">linkedin.com/in/valesca-bravo</a></p>
     </section>
   </main>
 
