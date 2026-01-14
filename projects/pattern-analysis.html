@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer Pattern Analysis (Behaviour & Lifecycle) | Valesca Bravo</title>
+  <meta name="description" content="Customer pattern analysis: value concentration, channel preference and lifecycle signals to inform CRM strategy. Snapshot + full report link." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#1d085e; --teal:#13d6c1; --teal-dark:#0a9a88;
+      --white:#ffffff; --gray-light:#f8f9fa; --gray-med:#6c757d; --gray-dark:#343a40;
+      --ink:#0b1220; --ink-muted: var(--gray-med);
+      --surface: var(--white); --surface-soft: var(--gray-light);
+      --border: rgba(29,8,94,0.12);
+      --shadow: 0 10px 24px rgba(29,8,94,0.08);
+      --radius: 18px;
+    }
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(19,214,193,0.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(29,8,94,0.10), transparent 55%),
+        var(--surface);
+    }
+    a{ color: var(--navy); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .wrap{ max-width: 1040px; margin: 0 auto; padding: 26px 16px 60px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+    }
+    .brand{ display:flex; flex-direction:column; gap:2px; }
+    .brand small{ color: var(--ink-muted); font-weight:600; letter-spacing:0.02em; }
+    .brand strong{ font-weight:800; letter-spacing:-0.02em; }
+    .navlinks{ display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(248,249,250,0.9);
+      font-weight:600;
+      font-size: 13px;
+    }
+    .pill svg{ width:16px; height:16px; }
+
+    .hero{
+      margin-top: 18px;
+      padding: 28px 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(19,214,193,0.16), rgba(255,255,255,0.92));
+      box-shadow: var(--shadow);
+    }
+    .kicker{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 12px; }
+    .tag{
+      font-size:12px; font-weight:700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: rgba(19,214,193,0.14);
+      border: 1px solid rgba(19,214,193,0.22);
+    }
+    h1{
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+    .subtitle{ margin-top: 10px; color: var(--gray-dark); font-size: 16px; max-width: 72ch; }
+
+    .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top: 18px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight:800;
+      font-size: 14px;
+      border: 1px solid transparent;
+      text-decoration:none;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn svg{ width:18px; height:18px; }
+    .btn-primary{ background: var(--navy); color: white; }
+    .btn-primary:hover{ background: #16064a; text-decoration:none; }
+    .btn-accent{ background: var(--teal); color: #061013; border-color: rgba(6,16,19,0.10); }
+    .btn-accent:hover{ background: var(--teal-dark); text-decoration:none; color:#061013; }
+    .btn-ghost{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--navy); }
+    .btn-ghost:hover{ background: rgba(248,249,250,1); text-decoration:none; }
+
+    .grid{ margin-top: 18px; display:grid; grid-template-columns: 1.25fr 0.75fr; gap: 16px; }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .navlinks{ justify-content:flex-start; }
+    }
+
+    .card{
+      padding: 18px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 8px 18px rgba(29,8,94,0.06);
+    }
+    .card h2{ margin: 0 0 10px; font-size: 16px; letter-spacing: -0.01em; }
+    .card p{ margin: 8px 0 0; color: var(--gray-dark); }
+    .card ul{ margin: 10px 0 0 18px; color: var(--gray-dark); }
+    .card li{ margin: 8px 0; }
+
+    .callout{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(19,214,193,0.25);
+      background: rgba(19,214,193,0.10);
+      color: #0b2b28;
+      font-weight: 600;
+    }
+
+    .mini{ display:flex; flex-direction:column; gap:12px; }
+    .mini .item{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(248,249,250,0.9);
+    }
+    .mini .label{ font-size: 12px; font-weight:800; color: var(--navy); margin-bottom: 6px; }
+    .mini .value{ font-size: 14px; color: var(--gray-dark); font-weight: 600; }
+
+    footer{
+      margin-top: 18px;
+      padding: 16px 2px;
+      color: var(--ink-muted);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <small>Project Snapshot</small>
+        <strong>Valesca Bravo</strong>
+      </div>
+
+      <nav class="navlinks">
+        <a class="pill" href="/">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 10.5L12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Home
+        </a>
+
+        <a class="pill" href="/#projects">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+          Projects
+        </a>
+
+        <a class="pill" href="/#contact">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6h16v12H4V6Zm0 1 8 6 8-6" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Contact
+        </a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="kicker">
+        <span class="tag">Python</span>
+        <span class="tag">EDA</span>
+        <span class="tag">Lifecycle</span>
+        <span class="tag">Channel Mix</span>
+        <span class="tag">CRM Insights</span>
+      </div>
+
+      <h1>Customer Pattern Analysis (Behaviour & Lifecycle)</h1>
+      <p class="subtitle">
+        <strong>Business question:</strong>
+        What patterns explain customer value concentration and engagement, and how can they guide CRM strategy?
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/reports/Pattern_Analysis_report.htm" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 5h5v5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M10 14 19 5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+          Open full report (HTML)
+        </a>
+
+        <a class="btn btn-accent" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 19c-4 1.2-4-2-5-2m10 4v-3c0-.9.3-1.4.8-1.9-2.7-.3-5.6-1.3-5.6-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C18.7 3.6 19.7 4 19.7 4c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.9 5.6-5.6 5.9.5.5.9 1.2.9 2.4v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          View code (GitHub)
+        </a>
+
+        <a class="btn btn-ghost" href="/">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+          Back to home
+        </a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Data & method</h2>
+        <ul>
+          <li>Descriptive CRM analysis across spending, products, channels and lifecycle signals.</li>
+          <li>Designed as a stakeholder-friendly narrative to support campaign and retention planning.</li>
+          <li>Insights structured to move from “what we see” to “what to do next”.</li>
+        </ul>
+
+        <div class="callout">
+          Outcome: a set of actionable insights to support retention, cross-sell and channel strategy.
+        </div>
+
+        <h2 style="margin-top:16px;">Key insights</h2>
+        <ul>
+          <li>Customer value is concentrated, supporting tiered CRM (VIP, core, reactivation).</li>
+          <li>Channel preference enables more effective contact policy and personalised messaging.</li>
+          <li>Behavioural patterns highlight clear opportunities for cross-sell and retention triggers.</li>
+        </ul>
+
+        <h2 style="margin-top:16px;">Deliverables</h2>
+        <ul>
+          <li><a href="/reports/Pattern_Analysis_report.htm" target="_blank" rel="noopener">Full report (HTML)</a></li>
+          <li><a href="https://github.com/ValescaBravo" target="_blank" rel="noopener">Repository (code + reproducibility)</a></li>
+        </ul>
+      </div>
+
+      <aside class="mini">
+        <div class="item">
+          <div class="label">Use case</div>
+          <div class="value">CRM planning: retention, cross-sell and channel strategy</div>
+        </div>
+
+        <div class="item">
+          <div class="label">Tech stack</div>
+          <div class="value">Python · pandas · EDA · visual reporting (HTML)</div>
+        </div>
+
+        <div class="item">
+          <div class="label">Audience</div>
+          <div class="value">Stakeholders (marketing, CRM, product) — non-technical friendly</div>
+        </div>
+
+        <div class="item">
+          <div class="label">Focus areas</div>
+          <div class="value">Value concentration · channel mix · lifecycle signals</div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <span>© 2026 Valesca Bravo</span>
+      <span>VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL DARK #0a9a88</span>
+    </footer>
+  </div>
+</body>
+</html>
