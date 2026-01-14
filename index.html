@@ -15,144 +15,169 @@
       --teal:#13d6c1;
       --teal-dark:#0a9a88;
 
-      /* VBDA — Neutrals */
+      /* Neutrals */
       --white:#ffffff;
       --gray-light:#f8f9fa;
       --gray-med:#6c757d;
       --gray-dark:#343a40;
 
-      /* UI helpers */
       --ink:#0b1220;
-      --border: rgba(29,8,94,0.18);
-      --shadow-soft: 0 10px 26px rgba(29,8,94,0.08);
-      --shadow-strong: 0 18px 40px rgba(29,8,94,0.14);
+      --border: rgba(19,214,193,0.35);
+
       --radius: 18px;
+      --shadow-float: 0 26px 70px rgba(0,0,0,0.30);
+      --shadow-card: 0 14px 30px rgba(0,0,0,0.14);
     }
 
     body{
       margin:0;
       font-family:'Inter', sans-serif;
-      color: var(--ink);
-      /* Más contraste + editorial */
-      background:
-        radial-gradient(1100px 520px at 12% 6%, rgba(19,214,193,0.34), transparent 58%),
-        radial-gradient(950px 520px at 88% 8%, rgba(29,8,94,0.18), transparent 55%),
-        linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
+      background: var(--navy);
+      color: white;
     }
 
-    /* Subtle grid pattern (revista / print feel) */
-    .bg-grid{
+    /* Magazine texture on navy */
+    .mag-texture{
       background-image:
-        linear-gradient(to right, rgba(29,8,94,0.07) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(29,8,94,0.07) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.92), transparent 70%);
-      opacity: 0.40;
+        radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
+        radial-gradient(780px 380px at 82% 12%, rgba(255,255,255,0.10), transparent 55%),
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: auto, auto, 56px 56px, 56px 56px;
     }
 
-    /* Glass con más definición */
-    .glass{
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 28px rgba(29,8,94,0.08);
+    /* Floating panel (white) */
+    .panel{
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
+      border-radius: 28px;
+      box-shadow: var(--shadow-float);
+      border: 1px solid rgba(255,255,255,0.18);
     }
 
-    /* Chips más “editorial” */
-    .chip{
-      background: rgba(19,214,193,0.18);
-      border: 1px solid rgba(29,8,94,0.18);
-      color: var(--navy);
-    }
-
-    /* Cards con más presencia */
+    /* Card (white) with teal accents */
     .card{
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
       border-radius: var(--radius);
-      background: rgba(255,255,255,0.90);
-      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
     .card:hover{
       transform: translateY(-6px);
-      box-shadow: var(--shadow-strong);
-      border-color: rgba(29,8,94,0.26);
+      box-shadow: 0 20px 42px rgba(0,0,0,0.18);
+      border-color: rgba(19,214,193,0.55);
     }
 
-    /* Botones más contrastados */
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(29,8,94,0.06);
+      border: 1px solid rgba(29,8,94,0.14);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .kicker{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(19,214,193,0.95);
+    }
+
+    .headline{
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .headline-accent{
+      color: var(--teal);
+      text-shadow: 0 10px 30px rgba(19,214,193,0.18);
+    }
+
+    /* Buttons */
     .btn-primary{
       background: var(--navy);
       color: white;
-      box-shadow: 0 10px 22px rgba(29,8,94,0.22);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(29,8,94,0.28);
     }
-    .btn-primary:hover{ background: #12043f; }
+    .btn-primary:hover{ background:#12043f; }
 
-    .btn-accent{
+    .btn-teal{
       background: var(--teal);
       color: #061013;
-      border: 1px solid rgba(6,16,19,0.12);
-      box-shadow: 0 10px 22px rgba(19,214,193,0.24);
-    }
-    .btn-accent:hover{ background: var(--teal-dark); }
-
-    .link{ color: var(--navy); }
-    .link:hover{ text-decoration: underline; opacity: 0.95; }
-
-    .icon-pill{
-      width: 44px; height: 44px;
       border-radius: 14px;
-      display:flex; align-items:center; justify-content:center;
-      background: rgba(19,214,193,0.18);
-      border: 1px solid rgba(29,8,94,0.18);
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(19,214,193,0.26);
+      border: 1px solid rgba(6,16,19,0.10);
+    }
+    .btn-teal:hover{ background: var(--teal-dark); }
+
+    .btn-ghost{
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: white;
+      background: rgba(255,255,255,0.06);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,0.10); }
+
+    /* Links on white */
+    .link{
       color: var(--navy);
+      font-weight: 800;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    /* Navbar (floating dark) */
+    .navglass{
+      background: rgba(10,8,30,0.40);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
     }
 
-    /* Magazine accent highlight */
-    .headline-accent{
-      position: relative;
-      display: inline;
-      background: linear-gradient(0deg, rgba(19,214,193,0.55), rgba(19,214,193,0.55));
-      background-size: 100% 0.38em;
-      background-repeat: no-repeat;
-      background-position: 0 88%;
-      padding: 0 0.08em;
-    }
-
-    /* Section kicker */
-    .kicker{
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(29,8,94,0.70);
-    }
-    .section-title{
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    /* Section separator like magazine */
+    .rule{
+      height: 1px;
+      background: rgba(19,214,193,0.30);
+      width: 100%;
     }
   </style>
 </head>
 
-<body class="text-slate-900">
-  <!-- NAV (sticky + glass) -->
+<body>
+  <!-- Top nav on navy -->
   <header class="sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-3">
-      <div class="glass rounded-2xl px-4 py-3 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="navglass px-4 py-3 flex items-center justify-between">
         <div class="leading-tight">
-          <p class="text-xs font-semibold" style="color: var(--gray-med);">Portfolio</p>
-          <p class="text-base font-extrabold tracking-tight">Valesca Bravo</p>
+          <p class="text-xs font-semibold opacity-80">Portfolio</p>
+          <p class="text-base font-extrabold">Valesca Bravo</p>
         </div>
 
-        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold" style="color: var(--gray-dark);">
-          <a href="#projects" class="hover:opacity-80">Projects</a>
-          <a href="#about" class="hover:opacity-80">About</a>
-          <a href="#recommendation" class="hover:opacity-80">Recommendation</a>
-          <a href="#contact" class="hover:opacity-80">Contact</a>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
+          <a href="#projects" class="hover:opacity-100">Projects</a>
+          <a href="#about" class="hover:opacity-100">About</a>
+          <a href="#recommendation" class="hover:opacity-100">Recommendation</a>
+          <a href="#contact" class="hover:opacity-100">Contact</a>
         </nav>
 
-        <!-- CV: por ahora mailto (cámbialo a /resume/latest.pdf cuando lo tengas) -->
-        <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary"
+        <!-- CV: por ahora mailto -->
+        <a class="btn-ghost"
            href="mailto:bravo.valesca@gmail.com?subject=CV%20request%20-%20Valesca%20Bravo">
           Download CV
         </a>
@@ -160,282 +185,205 @@
     </div>
   </header>
 
-  <!-- HERO (bento layout + editorial) -->
-  <section class="max-w-6xl mx-auto px-6 pt-10 pb-8 relative">
-    <div class="absolute inset-0 bg-grid pointer-events-none"></div>
+  <!-- HERO: Navy background + floating white panel -->
+  <section class="mag-texture">
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
+      <div class="panel p-8 md:p-12">
+        <p class="kicker">CRM & Marketing Analytics</p>
 
-    <div class="grid lg:grid-cols-2 gap-6 relative">
-      <!-- Left: headline -->
-      <div class="card p-8 lg:p-10">
-        <div class="flex flex-wrap gap-2 mb-4">
-          <span class="chip text-xs font-bold px-3 py-1 rounded-full">CRM Analytics</span>
-          <span class="chip text-xs font-bold px-3 py-1 rounded-full">Segmentation (RFM/PCA/KMeans)</span>
-          <span class="chip text-xs font-bold px-3 py-1 rounded-full">Predictive Modelling</span>
-          <span class="chip text-xs font-bold px-3 py-1 rounded-full">Power BI</span>
-        </div>
-
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
-          Data-driven <span class="headline-accent">CRM & Marketing Analytics</span>
-          <span style="color: var(--navy);">to improve targeting, retention and ROI</span>
+        <h1 class="headline text-4xl md:text-6xl mt-3">
+          Data-driven insights
+          <span class="headline-accent">for targeting, retention</span>
+          and ROI.
         </h1>
 
-        <p class="mt-4 text-base md:text-lg" style="color: var(--gray-dark); max-width: 68ch;">
-          I build decision-ready analytics using Python, SQL and Power BI—turning customer behaviour into actionable segments,
-          predictive scores and campaign optimisation.
+        <p class="mt-5 text-base md:text-lg" style="color: var(--gray-dark); max-width: 72ch;">
+          I build decision-ready analytics using Python, SQL and Power BI—turning customer behaviour into actionable
+          segments, predictive scores and campaign optimisation.
         </p>
 
         <div class="mt-6 flex flex-wrap gap-3">
-          <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary" href="#projects">View Projects</a>
-          <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-accent"
-             href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn-primary" href="#projects">View Projects</a>
+          <a class="btn-teal" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">LinkedIn</a>
         </div>
 
-        <div class="mt-6 grid sm:grid-cols-3 gap-3">
-          <div class="glass rounded-2xl p-4">
-            <p class="text-xs font-extrabold" style="color: var(--navy);">Focus</p>
-            <p class="text-sm mt-1" style="color: var(--gray-dark);">CRM targeting, retention, and measurement</p>
-          </div>
-          <div class="glass rounded-2xl p-4">
-            <p class="text-xs font-extrabold" style="color: var(--navy);">Strength</p>
-            <p class="text-sm mt-1" style="color: var(--gray-dark);">Stakeholder-friendly storytelling</p>
-          </div>
-          <div class="glass rounded-2xl p-4">
-            <p class="text-xs font-extrabold" style="color: var(--navy);">Delivery</p>
-            <p class="text-sm mt-1" style="color: var(--gray-dark);">HTML reports + Power BI dashboards</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: bento mini-cards -->
-      <div class="grid sm:grid-cols-2 gap-6">
-        <div class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 19V5m0 14h16M8 15l3-4 3 3 4-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-extrabold">What I ship</p>
-              <p class="text-xs" style="color: var(--gray-med);">Decision-ready outputs</p>
-            </div>
-          </div>
-          <ul class="mt-4 text-sm space-y-2" style="color: var(--gray-dark);">
-            <li>• Segments for activation planning</li>
-            <li>• Scores for prioritised outreach</li>
-            <li>• Clear recommendations and next steps</li>
-          </ul>
+        <div class="mt-7 flex flex-wrap gap-2">
+          <span class="chip">Segmentation (RFM/PCA/KMeans)</span>
+          <span class="chip">Predictive Modelling</span>
+          <span class="chip">Power BI (DAX)</span>
+          <span class="chip">CRM Strategy</span>
         </div>
 
-        <div class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-extrabold">Communication</p>
-              <p class="text-xs" style="color: var(--gray-med);">Non-technical friendly</p>
-            </div>
+        <div class="mt-8 grid md:grid-cols-3 gap-4">
+          <div class="card p-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Focus</p>
+            <p class="mt-2 text-sm" style="color: var(--gray-dark);">CRM targeting, retention, and measurement</p>
           </div>
-          <p class="mt-4 text-sm" style="color: var(--gray-dark);">
-            Structured “problem → method → insights → recommendations” to support decisions.
-          </p>
-        </div>
-
-        <div class="card p-6 sm:col-span-2">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16M4 12h10M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M18 10v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-extrabold">Toolbox</p>
-              <p class="text-xs" style="color: var(--gray-med);">Core stack</p>
-            </div>
+          <div class="card p-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Strength</p>
+            <p class="mt-2 text-sm" style="color: var(--gray-dark);">Stakeholder-friendly storytelling</p>
           </div>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Python (pandas, sklearn)</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">SQL</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Power BI (DAX)</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Marketing analytics</span>
+          <div class="card p-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Delivery</p>
+            <p class="mt-2 text-sm" style="color: var(--gray-dark);">HTML reports + Power BI dashboards</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <main class="max-w-6xl mx-auto px-6 pb-14">
-    <section id="projects" class="pt-8">
-      <p class="kicker">Selected work</p>
-      <h2 class="section-title">Projects</h2>
-      <p class="mt-2 text-sm" style="color: var(--gray-med);">Project snapshots (fast to scan) + full reports (deep dive).</p>
+  <!-- CONTENT (white cards on navy) -->
+  <main class="max-w-6xl mx-auto px-6 pb-16">
+    <!-- Projects -->
+    <section id="projects" class="pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <p class="kicker">Selected work</p>
+          <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Projects</h2>
+          <p class="mt-2 text-sm opacity-80">
+            Project snapshots (fast to scan) + full reports (deep dive).
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 rule"></div>
 
       <div class="grid md:grid-cols-2 gap-6 mt-6">
         <!-- Segmentation -->
         <article class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M6 20V8m6 12V4m6 16v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-extrabold">Customer Segmentation (RFM + PCA + KMeans)</h3>
-          </div>
-
+          <h3 class="text-lg font-extrabold">Customer Segmentation (RFM + PCA + KMeans)</h3>
           <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-            Actionable customer segments combining value, recency, frequency and channel behaviour for CRM prioritisation.
+            Actionable segments combining value, recency, frequency and channel behaviour for CRM prioritisation.
           </p>
 
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Python</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Clustering</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">RFM</span>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="chip">Python</span>
+            <span class="chip">Clustering</span>
+            <span class="chip">RFM</span>
           </div>
 
-          <div class="flex flex-wrap gap-3 mt-5">
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary" href="/projects/customer-segmentation.html">Project Snapshot</a>
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-accent" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Full Report</a>
-            <a class="text-sm font-semibold link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
+          <div class="flex flex-wrap gap-3 mt-6">
+            <a class="btn-primary" href="/projects/customer-segmentation.html">Project Snapshot</a>
+            <a class="btn-teal" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Full Report</a>
+            <a class="link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
           </div>
         </article>
 
         <!-- Predictive -->
         <article class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 19h16M7 16l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-extrabold">Predictive Modelling: Campaign Response</h3>
-          </div>
-
+          <h3 class="text-lg font-extrabold">Predictive Modelling: Campaign Response</h3>
           <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-            Customer-level response scoring to improve targeting efficiency and maximise ROI under budget constraints.
+            Response scoring to improve targeting efficiency and maximise ROI under budget constraints.
           </p>
 
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Python</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Random Forest</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Model Evaluation</span>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="chip">Python</span>
+            <span class="chip">Random Forest</span>
+            <span class="chip">Model Evaluation</span>
           </div>
 
-          <div class="flex flex-wrap gap-3 mt-5">
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary" href="/projects/predictive-modelling.html">Project Snapshot</a>
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-accent" href="/reports/predictive_model_report.htm" target="_blank" rel="noopener">Full Report</a>
-            <a class="text-sm font-semibold link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
+          <div class="flex flex-wrap gap-3 mt-6">
+            <a class="btn-primary" href="/projects/predictive-modelling.html">Project Snapshot</a>
+            <a class="btn-teal" href="/reports/predictive_model_report.htm" target="_blank" rel="noopener">Full Report</a>
+            <a class="link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
           </div>
         </article>
 
         <!-- Pattern -->
         <article class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour & Lifecycle)</h3>
-          </div>
-
+          <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour & Lifecycle)</h3>
           <p class="mt-3 text-sm" style="color: var(--gray-dark);">
             Exploratory CRM insights on value concentration, channel preference and lifecycle signals.
           </p>
 
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Python</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">EDA</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">CRM Insights</span>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="chip">Python</span>
+            <span class="chip">EDA</span>
+            <span class="chip">CRM Insights</span>
           </div>
 
-          <div class="flex flex-wrap gap-3 mt-5">
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary" href="/projects/pattern-analysis.html">Project Snapshot</a>
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-accent" href="/reports/Pattern_Analysis_report.htm" target="_blank" rel="noopener">Full Report</a>
-            <a class="text-sm font-semibold link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
+          <div class="flex flex-wrap gap-3 mt-6">
+            <a class="btn-primary" href="/projects/pattern-analysis.html">Project Snapshot</a>
+            <a class="btn-teal" href="/reports/Pattern_Analysis_report.htm" target="_blank" rel="noopener">Full Report</a>
+            <a class="link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">GitHub →</a>
           </div>
         </article>
 
         <!-- Power BI -->
         <article class="card p-6">
-          <div class="flex items-center gap-3">
-            <div class="icon-pill" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M6 18V9m6 9V6m6 12v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-extrabold">Power BI CRM Dashboard: RFM Threshold Optimiser</h3>
-          </div>
-
+          <h3 class="text-lg font-extrabold">Power BI CRM Dashboard: RFM Threshold Optimiser</h3>
           <p class="mt-3 text-sm" style="color: var(--gray-dark);">
             Dashboard to balance audience size vs response performance using lift and threshold selection.
           </p>
 
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Power BI</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">DAX</span>
-            <span class="chip text-xs font-bold px-3 py-1 rounded-full">Targeting</span>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="chip">Power BI</span>
+            <span class="chip">DAX</span>
+            <span class="chip">Targeting</span>
           </div>
 
-          <div class="flex flex-wrap gap-3 mt-5">
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-primary" href="/projects/powerbi-crm.html">Project Snapshot</a>
-            <a class="px-4 py-2 rounded-xl text-sm font-semibold btn-accent" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">PDF Walkthrough</a>
-            <a class="text-sm font-semibold link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">Files →</a>
+          <div class="flex flex-wrap gap-3 mt-6">
+            <a class="btn-primary" href="/projects/powerbi-crm.html">Project Snapshot</a>
+            <a class="btn-teal" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">PDF Walkthrough</a>
+            <a class="link self-center" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">Files →</a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- About -->
     <section id="about" class="pt-12">
-      <p class="kicker">Profile</p>
-      <h2 class="section-title">About</h2>
-      <p class="mt-3 max-w-3xl text-sm md:text-base" style="color: var(--gray-dark);">
-        Data Analyst with a background in digital marketing and a Master’s in Big Data & Business Intelligence.
-        I focus on CRM analytics, segmentation and predictive modelling to support campaign planning and measurable growth.
-      </p>
+      <div class="mt-10 rule"></div>
+      <p class="kicker mt-10">Profile</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">About</h2>
+
+      <div class="card p-6 mt-5">
+        <p class="text-sm md:text-base" style="color: var(--gray-dark); max-width: 80ch;">
+          Data Analyst with a background in digital marketing and a Master’s in Big Data & Business Intelligence.
+          I focus on CRM analytics, segmentation and predictive modelling to support campaign planning and measurable growth.
+        </p>
+      </div>
     </section>
 
-    <!-- RECOMMENDATION -->
+    <!-- Recommendation -->
     <section id="recommendation" class="pt-12">
-      <p class="kicker">Proof</p>
-      <h2 class="section-title">Recommendation</h2>
-      <div class="card p-6 mt-4">
-        <div class="flex items-center gap-3">
-          <div class="icon-pill" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M7 4h10v16H7V4Zm2 4h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <p class="font-extrabold">Open Doors Initiative — Digital Marketing with AI Programme</p>
-            <p class="text-sm" style="color: var(--gray-med);">Reference letter (Accenture collaboration).</p>
-          </div>
-        </div>
-        <a class="inline-block mt-4 px-4 py-2 rounded-xl text-sm font-semibold btn-accent"
+      <div class="mt-10 rule"></div>
+      <p class="kicker mt-10">Proof</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Recommendation</h2>
+
+      <div class="card p-6 mt-5">
+        <p class="text-lg font-extrabold">Open Doors Initiative — Digital Marketing with AI Programme</p>
+        <p class="mt-2 text-sm" style="color: var(--gray-dark);">
+          Reference letter (Accenture collaboration).
+        </p>
+
+        <a class="btn-teal inline-block mt-5"
            href="/recommendations/ODI-Reference.pdf" target="_blank" rel="noopener">
           View reference (PDF)
         </a>
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- Contact -->
     <section id="contact" class="pt-12">
-      <p class="kicker">Let’s talk</p>
-      <h2 class="section-title">Contact</h2>
-      <div class="mt-4 text-sm space-y-2" style="color: var(--gray-dark);">
-        <p>Email: <a class="link font-semibold" href="mailto:bravo.valesca@gmail.com">bravo.valesca@gmail.com</a></p>
-        <p>LinkedIn: <a class="link font-semibold" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">linkedin.com/in/valesca-bravo</a></p>
-        <p>GitHub: <a class="link font-semibold" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">github.com/ValescaBravo</a></p>
+      <div class="mt-10 rule"></div>
+      <p class="kicker mt-10">Let’s talk</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Contact</h2>
+
+      <div class="card p-6 mt-5">
+        <p class="text-sm" style="color: var(--gray-dark);">
+          Email: <a class="link" href="mailto:bravo.valesca@gmail.com">bravo.valesca@gmail.com</a>
+        </p>
+        <p class="text-sm mt-2" style="color: var(--gray-dark);">
+          LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">linkedin.com/in/valesca-bravo</a>
+        </p>
+        <p class="text-sm mt-2" style="color: var(--gray-dark);">
+          GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">github.com/ValescaBravo</a>
+        </p>
       </div>
     </section>
 
-    <footer class="pt-12 pb-10 text-sm" style="color: var(--gray-med);">
+    <footer class="pt-14 text-sm opacity-80">
       © 2026 Valesca Bravo · VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88
     </footer>
   </main>
