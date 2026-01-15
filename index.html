@@ -451,22 +451,53 @@
 
     <!-- Contact -->
     <section id="contact" class="pt-12">
-      <div class="mt-10 rule"></div>
-      <p class="kicker mt-10">Let’s talk</p>
-      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Contact</h2>
+  <div class="mt-10 rule"></div>
+  <p class="kicker mt-10">Let’s talk</p>
+  <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Contact</h2>
 
-      <div class="card p-6 mt-5">
-        <p class="text-sm" style="color: var(--gray-dark);">
-          Email: <a class="link" href="mailto:bravo.valesca@gmail.com">bravo.valesca@gmail.com</a>
-        </p>
-        <p class="text-sm mt-2" style="color: var(--gray-dark);">
-          LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">linkedin.com/in/valesca-bravo</a>
-        </p>
-        <p class="text-sm mt-2" style="color: var(--gray-dark);">
-          GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">github.com/ValescaBravo</a>
-        </p>
+  <div class="card p-6 mt-5">
+    <p class="text-sm" style="color: var(--gray-dark); max-width: 85ch;">
+      Best way to reach me: send a message here or via LinkedIn.
+    </p>
+
+    <form action="https://formspree.io/f/mreebrej" method="POST" class="mt-5 grid gap-3">
+      
+      <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+        <label>Do not fill this in: <input name="_gotcha" /></label>
       </div>
-    </section>
+
+      <input name="name" required placeholder="Name"
+             class="w-full rounded-xl border px-4 py-3"
+             style="border-color: rgba(29,8,94,0.18);" />
+
+      <input type="email" name="email" required placeholder="Email"
+             class="w-full rounded-xl border px-4 py-3"
+             style="border-color: rgba(29,8,94,0.18);" />
+
+      <textarea name="message" required rows="6" placeholder="Message"
+                class="w-full rounded-xl border px-4 py-3"
+                style="border-color: rgba(29,8,94,0.18);"></textarea>
+
+      <div class="flex flex-wrap gap-3 items-center">
+        <button type="submit" class="btn-teal">Send message</button>
+        <a class="btn-primary" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">Message on LinkedIn</a>
+      </div>
+
+      <p class="text-xs mt-2" style="color: var(--gray-med);">
+        This form is powered by Formspree (static site). You’ll receive messages in your inbox without exposing your email address.
+      </p>
+    </form>
+
+    <div class="mt-5">
+      <p class="text-sm" style="color: var(--gray-dark);">
+        GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">github.com/ValescaBravo</a>
+      </p>
+      <p class="text-sm mt-2" style="color: var(--gray-dark);">
+        LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">linkedin.com/in/valesca-bravo</a>
+      </p>
+    </div>
+  </div>
+</section>
 
     <footer class="pt-14 text-sm opacity-80">
       © 2026 Valesca Bravo · VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88
