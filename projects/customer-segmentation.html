@@ -1,14 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customer Segmentation (RFM + PCA + KMeans) | Valesca Bravo</title>
-  <meta name="description" content="Customer segmentation using RFM + PCA + KMeans to prioritise CRM programmes and targeting. Project snapshot + links to full report and code." />
 
-  <!-- Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -18,347 +15,345 @@
       --teal:#13d6c1;
       --teal-dark:#0a9a88;
 
-      /* VBDA — Neutrals */
+      /* Neutrals */
       --white:#ffffff;
       --gray-light:#f8f9fa;
       --gray-med:#6c757d;
       --gray-dark:#343a40;
 
-      /* UI */
       --ink:#0b1220;
-      --ink-muted: var(--gray-med);
-      --surface: var(--white);
-      --surface-soft: var(--gray-light);
-      --border: rgba(29,8,94,0.12);
+      --border: rgba(19,214,193,0.35);
 
-      --shadow: 0 10px 24px rgba(29,8,94,0.08);
       --radius: 18px;
+      --shadow-float: 0 26px 70px rgba(0,0,0,0.30);
+      --shadow-card: 0 14px 30px rgba(0,0,0,0.14);
     }
 
-    *{ box-sizing: border-box; }
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:'Inter', sans-serif;
+      background: var(--navy);
+      color: white;
+    }
+
+    /* Magazine texture on navy */
+    .mag-texture{
+      background-image:
+        radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
+        radial-gradient(780px 380px at 82% 12%, rgba(255,255,255,0.10), transparent 55%),
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: auto, auto, 56px 56px, 56px 56px;
+    }
+
+    /* Floating panel (white) */
+    .panel{
+      background: rgba(255,255,255,0.98);
       color: var(--ink);
-      background:
-        radial-gradient(1200px 600px at 20% 0%, rgba(19,214,193,0.18), transparent 60%),
-        radial-gradient(900px 500px at 80% 10%, rgba(29,8,94,0.10), transparent 55%),
-        var(--surface);
+      border-radius: 28px;
+      box-shadow: var(--shadow-float);
+      border: 1px solid rgba(255,255,255,0.18);
     }
 
-    a{ color: var(--navy); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-
-    .wrap{ max-width: 1040px; margin: 0 auto; padding: 26px 16px 60px; }
-
-    /* Header */
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.75);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      backdrop-filter: blur(8px);
-    }
-    .brand{
-      display:flex; flex-direction:column; gap:2px;
-    }
-    .brand small{ color: var(--ink-muted); font-weight:600; letter-spacing:0.02em; }
-    .brand strong{ font-weight:800; letter-spacing:-0.02em; }
-
-    .navlinks{ display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(248,249,250,0.9);
-      font-weight:600;
-      font-size: 13px;
-    }
-    .pill svg{ width:16px; height:16px; }
-
-    /* Hero */
-    .hero{
-      margin-top: 18px;
-      padding: 28px 22px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(19,214,193,0.16), rgba(255,255,255,0.92));
-      box-shadow: var(--shadow);
-    }
-    .kicker{
-      display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 12px;
-    }
-    .tag{
-      font-size:12px; font-weight:700;
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--navy);
-      background: rgba(19,214,193,0.14);
-      border: 1px solid rgba(19,214,193,0.22);
-    }
-    h1{
-      margin: 0;
-      font-size: clamp(26px, 3.2vw, 40px);
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-    }
-    .subtitle{
-      margin-top: 10px;
-      color: var(--gray-dark);
-      font-size: 16px;
-      max-width: 72ch;
-    }
-
-    .cta-row{
-      display:flex; flex-wrap:wrap; gap:12px;
-      margin-top: 18px;
-    }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight:800;
-      font-size: 14px;
-      border: 1px solid transparent;
-      text-decoration:none;
-      cursor:pointer;
-      user-select:none;
-    }
-    .btn svg{ width:18px; height:18px; }
-    .btn-primary{ background: var(--navy); color: white; }
-    .btn-primary:hover{ background: #16064a; text-decoration:none; }
-    .btn-accent{ background: var(--teal); color: #061013; border-color: rgba(6,16,19,0.10); }
-    .btn-accent:hover{ background: var(--teal-dark); text-decoration:none; color:#061013; }
-    .btn-ghost{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--navy); }
-    .btn-ghost:hover{ background: rgba(248,249,250,1); text-decoration:none; }
-
-    /* Layout grid */
-    .grid{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 16px;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-      .navlinks{ justify-content:flex-start; }
-    }
-
+    /* Card (white) with teal accents */
     .card{
-      padding: 18px 18px;
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 8px 18px rgba(29,8,94,0.06);
+      box-shadow: var(--shadow-card);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    .card h2{
-      margin: 0 0 10px;
-      font-size: 16px;
-      letter-spacing: -0.01em;
-    }
-    .card p{ margin: 8px 0 0; color: var(--gray-dark); }
-    .card ul{ margin: 10px 0 0 18px; color: var(--gray-dark); }
-    .card li{ margin: 8px 0; }
-
-    .callout{
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(19,214,193,0.25);
-      background: rgba(19,214,193,0.10);
-      color: #0b2b28;
-      font-weight: 600;
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 20px 42px rgba(0,0,0,0.18);
+      border-color: rgba(19,214,193,0.55);
     }
 
-    .mini{
-      display:flex; flex-direction:column; gap:12px;
-    }
-    .mini .item{
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(248,249,250,0.9);
-    }
-    .mini .label{ font-size: 12px; font-weight:800; color: var(--navy); margin-bottom: 6px; }
-    .mini .value{ font-size: 14px; color: var(--gray-dark); font-weight: 600; }
-
-    .palette{
-      display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px;
-    }
-    .swatch{
-      display:flex; align-items:center; gap:8px;
-      padding: 8px 10px;
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.9);
+      background: rgba(29,8,94,0.06);
+      border: 1px solid rgba(29,8,94,0.14);
+      color: var(--navy);
+      font-weight: 800;
       font-size: 12px;
-      color: var(--gray-dark);
-      font-weight: 700;
+      letter-spacing: 0.01em;
     }
-    .dot{ width:10px; height:10px; border-radius:999px; }
 
-    footer{
-      margin-top: 18px;
-      padding: 16px 2px;
-      color: var(--ink-muted);
+    .kicker{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(19,214,193,0.95);
+    }
+
+    .headline{
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .headline-accent{
+      color: var(--teal);
+      text-shadow: 0 10px 30px rgba(19,214,193,0.18);
+    }
+
+    /* Buttons */
+    .btn-primary{
+      background: var(--navy);
+      color: white;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(29,8,94,0.28);
+      display:inline-block;
+    }
+    .btn-primary:hover{ background:#12043f; }
+
+    .btn-teal{
+      background: var(--teal);
+      color: #061013;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(19,214,193,0.26);
+      border: 1px solid rgba(6,16,19,0.10);
+      display:inline-block;
+    }
+    .btn-teal:hover{ background: var(--teal-dark); }
+
+    .btn-ghost{
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: white;
+      background: rgba(255,255,255,0.06);
+      display:inline-block;
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,0.10); }
+
+    /* Links on white */
+    .link{
+      color: var(--navy);
+      font-weight: 800;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    /* Navbar (floating dark) */
+    .navglass{
+      background: rgba(10,8,30,0.40);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+    }
+
+    /* Section separator like magazine */
+    .rule{
+      height: 1px;
+      background: rgba(19,214,193,0.30);
+      width: 100%;
+    }
+
+    /* Small helper for muted text on white cards */
+    .muted{ color: var(--gray-dark); }
+
+    /* Tiny “meta” row styling */
+    .meta-row{
       font-size: 13px;
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      color: var(--gray-med);
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <!-- Top Bar -->
-    <header class="topbar">
-      <div class="brand">
-        <small>Project Snapshot</small>
-        <strong>Valesca Bravo</strong>
-      </div>
-
-      <nav class="navlinks">
-        <a class="pill" href="/">
-          <!-- home icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 10.5L12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" />
-          </svg>
-          Home
-        </a>
-
-        <a class="pill" href="/#projects">
-          <!-- grid icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Projects
-        </a>
-
-        <a class="pill" href="/#contact">
-          <!-- mail icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 6h16v12H4V6Zm0 1 8 6 8-6" stroke="currentColor" stroke-width="1.8" />
-          </svg>
-          Contact
-        </a>
-      </nav>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div class="kicker">
-        <span class="tag">Python</span>
-        <span class="tag">RFM</span>
-        <span class="tag">PCA</span>
-        <span class="tag">KMeans</span>
-        <span class="tag">CRM Analytics</span>
-      </div>
-
-      <h1>Customer Segmentation (RFM + PCA + KMeans)</h1>
-      <p class="subtitle">
-        <strong>Business question:</strong>
-        How can we group customers into actionable segments to prioritise CRM programmes and targeting?
-      </p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">
-          <!-- external icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14 5h5v5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M10 14 19 5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Open full report (HTML)
-        </a>
-
-        <a class="btn btn-accent" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">
-          <!-- github-like icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 19c-4 1.2-4-2-5-2m10 4v-3c0-.9.3-1.4.8-1.9-2.7-.3-5.6-1.3-5.6-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C18.7 3.6 19.7 4 19.7 4c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.9 5.6-5.6 5.9.5.5.9 1.2.9 2.4v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          View code (GitHub)
-        </a>
-
-        <a class="btn btn-ghost" href="/">
-          <!-- arrow left -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Back to home
-        </a>
-      </div>
-    </section>
-
-    <!-- Content -->
-    <section class="grid">
-      <!-- Main column -->
-      <div class="card">
-        <h2>Data & method</h2>
-        <ul>
-          <li>Customer-level purchase history and behavioural features.</li>
-          <li>RFM + PCA to reduce dimensionality and stabilise clustering.</li>
-          <li>KMeans clustering to create three interpretable segments.</li>
-        </ul>
-
-        <div class="callout">
-          Outcome: segments designed to be operational (activation-ready) for CRM prioritisation and targeting rules.
+  <!-- Top nav (same language/feel as home) -->
+  <header class="sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="navglass px-4 py-3 flex items-center justify-between">
+        <div class="leading-tight">
+          <p class="text-xs font-semibold opacity-80">Portfolio · Project Snapshot</p>
+          <p class="text-base font-extrabold">Valesca Bravo</p>
         </div>
 
-        <h2 style="margin-top:16px;">Key insights</h2>
-        <ul>
-          <li>Three segments emerged with a clear value gradient for CRM prioritisation.</li>
-          <li>RFM signals provide stable separation and easy-to-activate rules.</li>
-          <li>Channel behaviour clarifies activation strategy (digital-first vs offline-led).</li>
-        </ul>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
+          <a href="/#projects" class="hover:opacity-100">Projects</a>
+          <a href="/#about" class="hover:opacity-100">About</a>
+          <a href="/#recommendation" class="hover:opacity-100">Recommendation</a>
+          <a href="/#contact" class="hover:opacity-100">Contact</a>
+        </nav>
 
-        <h2 style="margin-top:16px;">Deliverables</h2>
-        <ul>
-          <li><a href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Full report (HTML)</a></li>
-          <li><a href="https://github.com/ValescaBravo" target="_blank" rel="noopener">Repository (code + reproducibility)</a></li>
-        </ul>
+        <a class="btn-ghost"
+           href="mailto:bravo.valesca@gmail.com?subject=CV%20request%20-%20Valesca%20Bravo">
+          Download CV
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO: navy + magazine texture + floating panel -->
+  <section class="mag-texture">
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
+      <div class="panel p-8 md:p-12">
+        <p class="kicker">Customer analytics</p>
+
+        <h1 class="headline text-3xl md:text-6xl mt-3">
+          Customer Segmentation
+          <span class="headline-accent">(RFM + PCA + KMeans)</span>
+        </h1>
+
+        <p class="mt-5 text-base md:text-lg muted" style="max-width: 78ch;">
+          I built actionable CRM segments by combining RFM signals with dimensionality reduction (PCA) and clustering (KMeans),
+          producing activation-ready groups and clear recommendations for targeting and retention.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="chip">Python</span>
+          <span class="chip">RFM</span>
+          <span class="chip">PCA</span>
+          <span class="chip">KMeans</span>
+          <span class="chip">CRM Strategy</span>
+        </div>
+
+        <!-- CTAs (aligned to home) -->
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a class="btn-primary" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Open full report (HTML)</a>
+          <a class="btn-teal" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank" rel="noopener">View code (GitHub)</a>
+          <a class="btn-ghost" href="/#projects">Back to home</a>
+        </div>
+
+        <p class="mt-4 meta-row">
+          Notebook:
+          <a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans/blob/main/notebooks/01_segmentation.ipynb" target="_blank" rel="noopener">01_segmentation.ipynb</a>
+          · Supporting library:
+          <a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT: white cards on navy, editorial 12-col layout -->
+  <main class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-12 gap-6">
+
+      <!-- MAIN (8 cols on desktop) -->
+      <div class="col-span-12 lg:col-span-8">
+
+        <div class="card p-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Problem</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">Business context</h2>
+          <div class="mt-4 rule"></div>
+
+          <p class="mt-4 text-sm muted" style="max-width: 85ch;">
+            CRM teams need segments that are both statistically grounded and operationally actionable.
+            The goal is to create customer groups that support prioritisation (who to focus on) and activation
+            (what to say, when, and through which channel).
+          </p>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Data + method</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">How it was built</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li><strong>Features:</strong> customer-level RFM signals plus behavioural/channel indicators.</li>
+            <li><strong>PCA:</strong> reduce dimensionality to stabilise clustering and improve interpretability.</li>
+            <li><strong>KMeans:</strong> produce segments designed for CRM activation and prioritisation.</li>
+            <li><strong>Profiling:</strong> compare segments by value, frequency, recency and engagement proxies.</li>
+          </ul>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Insights</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">3 key takeaways</h2>
+          <div class="mt-4 rule"></div>
+
+          <ol class="mt-4 list-decimal list-inside text-sm muted">
+            <li><strong>Clear value gradient:</strong> segments separate customers by value and engagement for prioritisation.</li>
+            <li><strong>Activation-ready rules:</strong> RFM-based characteristics translate into practical CRM targeting criteria.</li>
+            <li><strong>Channel signals matter:</strong> behaviour helps tailor offers and cadence (digital-first vs offline-led).</li>
+          </ol>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Recommendations</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">What I would do next</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li>Design segment-specific CRM journeys (VIP retention, growth for mid-value, win-back for at-risk).</li>
+            <li>Refresh segments on a regular cadence (monthly/quarterly) and track migration across segments.</li>
+            <li>Use segment labels as features for response modelling and campaign optimisation.</li>
+          </ul>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Deliverables</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">Links</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li><a class="link" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Full report (HTML)</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank" rel="noopener">Repository (code + reproducibility)</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans/blob/main/notebooks/01_segmentation.ipynb" target="_blank" rel="noopener">Notebook (01_segmentation.ipynb)</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab (supporting library)</a></li>
+          </ul>
+        </div>
+
       </div>
 
-      <!-- Side column -->
-      <aside class="mini">
-        <div class="item">
-          <div class="label">Use case</div>
-          <div class="value">CRM segmentation for prioritisation and activation planning</div>
-        </div>
+      <!-- SIDEBAR (4 cols on desktop, sticky only on lg+) -->
+      <aside class="col-span-12 lg:col-span-4">
+        <div class="card p-6 lg:sticky lg:top-24">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Quick facts</p>
+          <div class="mt-3 rule"></div>
 
-        <div class="item">
-          <div class="label">Tech stack</div>
-          <div class="value">Python · pandas · PCA · KMeans · reporting (HTML)</div>
-        </div>
-
-        <div class="item">
-          <div class="label">Audience</div>
-          <div class="value">Marketing / CRM stakeholders (non-technical friendly)</div>
-        </div>
-
-        <div class="item">
-          <div class="label">Visualisation palette</div>
-          <div class="value">Colour-blind friendly set used across reports</div>
-          <div class="palette" aria-label="VBDA visualisation palette">
-            <span class="swatch"><span class="dot" style="background:#1d085e"></span>#1d085e</span>
-            <span class="swatch"><span class="dot" style="background:#0a9a88"></span>#0a9a88</span>
-            <span class="swatch"><span class="dot" style="background:#ff7043"></span>#ff7043</span>
-            <span class="swatch"><span class="dot" style="background:#ffc107"></span>#ffc107</span>
-            <span class="swatch"><span class="dot" style="background:#78909c"></span>#78909c</span>
-            <span class="swatch"><span class="dot" style="background:#9c27b0"></span>#9c27b0</span>
-            <span class="swatch"><span class="dot" style="background:#4caf50"></span>#4caf50</span>
+          <div class="mt-4">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Use case</p>
+            <p class="mt-2 text-sm muted">CRM segmentation for prioritisation and activation planning.</p>
           </div>
+
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Tech stack</p>
+            <p class="mt-2 text-sm muted">Python · pandas · scikit-learn · PCA · KMeans</p>
+          </div>
+
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Audience</p>
+            <p class="mt-2 text-sm muted">Marketing/CRM stakeholders (non-technical friendly).</p>
+          </div>
+
+          <div class="mt-6">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Primary output</p>
+            <a class="btn-primary mt-3" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Open HTML report</a>
+          </div>
+
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Supporting evidence</p>
+            <div class="mt-3 grid gap-2">
+              <a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank" rel="noopener">Repo (code) →</a>
+              <a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans/blob/main/notebooks/01_segmentation.ipynb" target="_blank" rel="noopener">Notebook →</a>
+              <a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab →</a>
+            </div>
+          </div>
+
+          <p class="mt-6 text-xs" style="color: var(--gray-med);">
+            Responsive: sidebar stacks below content on mobile/tablet and becomes sticky on desktop.
+          </p>
         </div>
       </aside>
-    </section>
 
-    <footer>
-      <span>© 2026 Valesca Bravo</span>
-      <span>VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88</span>
+    </div>
+
+    <footer class="pt-14 text-sm opacity-80">
+      © 2026 Valesca Bravo · VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88
     </footer>
-  </div>
+  </main>
 </body>
 </html>
