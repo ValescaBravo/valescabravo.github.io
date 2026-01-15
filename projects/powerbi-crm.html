@@ -1,284 +1,369 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Power BI CRM Dashboard: RFM Threshold Optimiser | Valesca Bravo</title>
-  <meta name="description" content="Power BI CRM dashboard to balance audience size vs response performance using RFM threshold selection and lift. Snapshot + PDF walkthrough link." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI CRM Dashboard (RFM Threshold Optimiser) | Valesca Bravo</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --navy:#1d085e; --teal:#13d6c1; --teal-dark:#0a9a88;
-      --white:#ffffff; --gray-light:#f8f9fa; --gray-med:#6c757d; --gray-dark:#343a40;
-      --ink:#0b1220; --ink-muted: var(--gray-med);
-      --surface: var(--white); --surface-soft: var(--gray-light);
-      --border: rgba(29,8,94,0.12);
-      --shadow: 0 10px 24px rgba(29,8,94,0.08);
+      /* VBDA — Brand */
+      --navy:#1d085e;
+      --teal:#13d6c1;
+      --teal-dark:#0a9a88;
+
+      /* Neutrals */
+      --white:#ffffff;
+      --gray-light:#f8f9fa;
+      --gray-med:#6c757d;
+      --gray-dark:#343a40;
+
+      --ink:#0b1220;
+      --border: rgba(19,214,193,0.35);
+
       --radius: 18px;
+      --shadow-float: 0 26px 70px rgba(0,0,0,0.30);
+      --shadow-card: 0 14px 30px rgba(0,0,0,0.14);
     }
-    *{ box-sizing: border-box; }
+
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family:'Inter', sans-serif;
+      background: var(--navy);
+      color: white;
+    }
+
+    /* Magazine texture on navy */
+    .mag-texture{
+      background-image:
+        radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
+        radial-gradient(780px 380px at 82% 12%, rgba(255,255,255,0.10), transparent 55%),
+        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: auto, auto, 56px 56px, 56px 56px;
+    }
+
+    /* Floating panel (white) */
+    .panel{
+      background: rgba(255,255,255,0.98);
       color: var(--ink);
-      background:
-        radial-gradient(1200px 600px at 20% 0%, rgba(19,214,193,0.18), transparent 60%),
-        radial-gradient(900px 500px at 80% 10%, rgba(29,8,94,0.10), transparent 55%),
-        var(--surface);
-    }
-    a{ color: var(--navy); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-    .wrap{ max-width: 1040px; margin: 0 auto; padding: 26px 16px 60px; }
-
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.75);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      backdrop-filter: blur(8px);
-    }
-    .brand{ display:flex; flex-direction:column; gap:2px; }
-    .brand small{ color: var(--ink-muted); font-weight:600; letter-spacing:0.02em; }
-    .brand strong{ font-weight:800; letter-spacing:-0.02em; }
-    .navlinks{ display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(248,249,250,0.9);
-      font-weight:600;
-      font-size: 13px;
-    }
-    .pill svg{ width:16px; height:16px; }
-
-    .hero{
-      margin-top: 18px;
-      padding: 28px 22px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(19,214,193,0.16), rgba(255,255,255,0.92));
-      box-shadow: var(--shadow);
-    }
-    .kicker{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 12px; }
-    .tag{
-      font-size:12px; font-weight:700;
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--navy);
-      background: rgba(19,214,193,0.14);
-      border: 1px solid rgba(19,214,193,0.22);
-    }
-    h1{
-      margin: 0;
-      font-size: clamp(26px, 3.2vw, 40px);
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-    }
-    .subtitle{ margin-top: 10px; color: var(--gray-dark); font-size: 16px; max-width: 72ch; }
-
-    .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top: 18px; }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight:800;
-      font-size: 14px;
-      border: 1px solid transparent;
-      text-decoration:none;
-      cursor:pointer;
-      user-select:none;
-    }
-    .btn svg{ width:18px; height:18px; }
-    .btn-primary{ background: var(--navy); color: white; }
-    .btn-primary:hover{ background: #16064a; text-decoration:none; }
-    .btn-accent{ background: var(--teal); color: #061013; border-color: rgba(6,16,19,0.10); }
-    .btn-accent:hover{ background: var(--teal-dark); text-decoration:none; color:#061013; }
-    .btn-ghost{ background: rgba(255,255,255,0.8); border-color: var(--border); color: var(--navy); }
-    .btn-ghost:hover{ background: rgba(248,249,250,1); text-decoration:none; }
-
-    .grid{ margin-top: 18px; display:grid; grid-template-columns: 1.25fr 0.75fr; gap: 16px; }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-      .navlinks{ justify-content:flex-start; }
+      border-radius: 28px;
+      box-shadow: var(--shadow-float);
+      border: 1px solid rgba(255,255,255,0.18);
     }
 
+    /* Card (white) with teal accents */
     .card{
-      padding: 18px 18px;
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 8px 18px rgba(29,8,94,0.06);
+      box-shadow: var(--shadow-card);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    .card h2{ margin: 0 0 10px; font-size: 16px; letter-spacing: -0.01em; }
-    .card p{ margin: 8px 0 0; color: var(--gray-dark); }
-    .card ul{ margin: 10px 0 0 18px; color: var(--gray-dark); }
-    .card li{ margin: 8px 0; }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 20px 42px rgba(0,0,0,0.18);
+      border-color: rgba(19,214,193,0.55);
+    }
 
-    .callout{
-      margin-top: 12px;
-      padding: 12px 12px;
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(29,8,94,0.06);
+      border: 1px solid rgba(29,8,94,0.14);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .kicker{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(19,214,193,0.95);
+    }
+
+    .headline{
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .headline-accent{
+      color: var(--teal);
+      text-shadow: 0 10px 30px rgba(19,214,193,0.18);
+    }
+
+    /* Buttons */
+    .btn-primary{
+      background: var(--navy);
+      color: white;
       border-radius: 14px;
-      border: 1px solid rgba(19,214,193,0.25);
-      background: rgba(19,214,193,0.10);
-      color: #0b2b28;
-      font-weight: 600;
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(29,8,94,0.28);
+      display:inline-block;
     }
+    .btn-primary:hover{ background:#12043f; }
 
-    .mini{ display:flex; flex-direction:column; gap:12px; }
-    .mini .item{
-      padding: 12px 12px;
+    .btn-teal{
+      background: var(--teal);
+      color: #061013;
       border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(248,249,250,0.9);
+      padding: 12px 16px;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(19,214,193,0.26);
+      border: 1px solid rgba(6,16,19,0.10);
+      display:inline-block;
     }
-    .mini .label{ font-size: 12px; font-weight:800; color: var(--navy); margin-bottom: 6px; }
-    .mini .value{ font-size: 14px; color: var(--gray-dark); font-weight: 600; }
+    .btn-teal:hover{ background: var(--teal-dark); }
 
-    footer{
-      margin-top: 18px;
-      padding: 16px 2px;
-      color: var(--ink-muted);
+    .btn-ghost{
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: white;
+      background: rgba(255,255,255,0.06);
+      display:inline-block;
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,0.10); }
+
+    /* Links on white */
+    .link{
+      color: var(--navy);
+      font-weight: 800;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    /* Navbar (floating dark) */
+    .navglass{
+      background: rgba(10,8,30,0.40);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+    }
+
+    /* Section separator like magazine */
+    .rule{
+      height: 1px;
+      background: rgba(19,214,193,0.30);
+      width: 100%;
+    }
+
+    .muted{ color: var(--gray-dark); }
+
+    .meta-row{
       font-size: 13px;
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      color: var(--gray-med);
+    }
+
+    /* Small image styling */
+    .shot{
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(29,8,94,0.12);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.10);
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <div class="brand">
-        <small>Project Snapshot</small>
-        <strong>Valesca Bravo</strong>
-      </div>
-
-      <nav class="navlinks">
-        <a class="pill" href="/">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 10.5L12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" />
-          </svg>
-          Home
-        </a>
-
-        <a class="pill" href="/#projects">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Projects
-        </a>
-
-        <a class="pill" href="/#contact">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 6h16v12H4V6Zm0 1 8 6 8-6" stroke="currentColor" stroke-width="1.8" />
-          </svg>
-          Contact
-        </a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <div class="kicker">
-        <span class="tag">Power BI</span>
-        <span class="tag">DAX</span>
-        <span class="tag">RFM</span>
-        <span class="tag">Lift</span>
-        <span class="tag">Campaign Targeting</span>
-      </div>
-
-      <h1>Power BI CRM Dashboard: RFM Threshold Optimiser</h1>
-      <p class="subtitle">
-        <strong>Business question:</strong>
-        What targeting threshold best balances audience size and response performance for a campaign objective?
-      </p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14 5h5v5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M10 14 19 5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Open PDF walkthrough
-        </a>
-
-        <a class="btn btn-accent" href="/#projects">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Back to projects
-        </a>
-
-        <a class="btn btn-ghost" href="/">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Back to home
-        </a>
-      </div>
-    </section>
-
-    <section class="grid">
-      <div class="card">
-        <h2>What’s included</h2>
-        <ul>
-          <li>RFM threshold controls to select the eligible campaign audience.</li>
-          <li>Lift and response-rate views to compare efficiency vs reach.</li>
-          <li>Supporting views (cohorts / customer overview) to contextualise performance.</li>
-        </ul>
-
-        <div class="callout">
-          Outcome: a practical dashboard to choose targeting thresholds aligned to business goals (reach vs efficiency).
+  <!-- Top nav -->
+  <header class="sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="navglass px-4 py-3 flex items-center justify-between">
+        <div class="leading-tight">
+          <p class="text-xs font-semibold opacity-80">Portfolio · Project Snapshot</p>
+          <p class="text-base font-extrabold">Valesca Bravo</p>
         </div>
 
-        <h2 style="margin-top:16px;">Key insights</h2>
-        <ul>
-          <li>Lower thresholds increase reach but typically reduce targeting efficiency.</li>
-          <li>Higher thresholds improve efficiency but reduce audience size.</li>
-          <li>Lift helps identify the “sweet spot” depending on campaign objective and budget.</li>
-        </ul>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
+          <a href="/#projects" class="hover:opacity-100">Projects</a>
+          <a href="/#about" class="hover:opacity-100">About</a>
+          <a href="/#recommendation" class="hover:opacity-100">Recommendation</a>
+          <a href="/#contact" class="hover:opacity-100">Contact</a>
+        </nav>
 
-        <h2 style="margin-top:16px;">Deliverables</h2>
-        <ul>
-          <li><a href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">PDF walkthrough</a></li>
-        </ul>
+        <a class="btn-ghost"
+           href="mailto:bravo.valesca@gmail.com?subject=CV%20request%20-%20Valesca%20Bravo">
+          Download CV
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="mag-texture">
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
+      <div class="panel p-8 md:p-12">
+        <p class="kicker">BI & decision support</p>
+
+        <h1 class="headline text-3xl md:text-6xl mt-3">
+          Power BI CRM Dashboard
+          <span class="headline-accent">(RFM Threshold Optimiser)</span>
+        </h1>
+
+        <p class="mt-5 text-base md:text-lg muted" style="max-width: 78ch;">
+          Interactive dashboard to support CRM targeting decisions by balancing audience coverage vs response performance.
+          The report helps select practical thresholds (reach vs efficiency) using lift-style comparisons.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="chip">Power BI</span>
+          <span class="chip">DAX</span>
+          <span class="chip">Targeting</span>
+          <span class="chip">Lift</span>
+          <span class="chip">Threshold selection</span>
+        </div>
+
+        <!-- CTAs -->
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a class="btn-primary" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">Open PDF walkthrough</a>
+          <a class="btn-teal" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank" rel="noopener">View files (GitHub)</a>
+          <a class="btn-ghost" href="/#projects">Back to home</a>
+        </div>
+
+        <p class="mt-4 meta-row">
+          PBIX:
+          <a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/blob/main/CRM_Analytics_Portfolio.pbix" target="_blank" rel="noopener">CRM_Analytics_Portfolio.pbix</a>
+          · Supporting library:
+          <a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-12 gap-6">
+
+      <!-- MAIN -->
+      <div class="col-span-12 lg:col-span-8">
+
+        <div class="card p-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Problem</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">Business context</h2>
+          <div class="mt-4 rule"></div>
+
+          <p class="mt-4 text-sm muted" style="max-width: 85ch;">
+            CRM teams often need to decide “who to target” based on imperfect signals.
+            This dashboard supports that decision by making the trade-off explicit: as you raise the threshold,
+            the audience shrinks but performance (response rate / lift) typically improves.
+          </p>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">What it includes</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">Dashboard design</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li><strong>Threshold selector:</strong> compare multiple RFM cut-offs.</li>
+            <li><strong>Coverage vs performance:</strong> audience size vs response rate (lift-style comparison).</li>
+            <li><strong>Targeting simulator:</strong> choose thresholds for efficiency vs scale.</li>
+            <li><strong>Stakeholder-ready:</strong> clear callouts and recommended ranges.</li>
+          </ul>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Insights</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">3 key takeaways</h2>
+          <div class="mt-4 rule"></div>
+
+          <ol class="mt-4 list-decimal list-inside text-sm muted">
+            <li><strong>Trade-off is measurable:</strong> higher thresholds generally increase efficiency but reduce reach.</li>
+            <li><strong>One threshold won’t fit all:</strong> the “best” cut-off depends on the campaign objective.</li>
+            <li><strong>Decision support:</strong> lift-style views help explain the choice to non-technical stakeholders.</li>
+          </ol>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Recommendations</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">What I would do next</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li>Align threshold selection with budget and CRM goal (retention vs acquisition vs reactivation).</li>
+            <li>Operationalise threshold rules and track outcomes over time (lift, ROI, churn).</li>
+            <li>Combine with predictive response scores to refine targeting decisions further.</li>
+          </ul>
+        </div>
+
+        <div class="card p-6 mt-6">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Deliverables</p>
+          <h2 class="text-2xl font-extrabold mt-2" style="color: var(--navy);">Links</h2>
+          <div class="mt-4 rule"></div>
+
+          <ul class="mt-4 list-disc list-inside text-sm muted">
+            <li><a class="link" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">PDF walkthrough</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank" rel="noopener">Repository (PBIX + assets)</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/blob/main/CRM_Analytics_Portfolio.pbix" target="_blank" rel="noopener">PBIX file</a></li>
+            <li><a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab (supporting library)</a></li>
+          </ul>
+        </div>
+
       </div>
 
-      <aside class="mini">
-        <div class="item">
-          <div class="label">Use case</div>
-          <div class="value">Targeting optimisation: balance reach vs efficiency using RFM thresholds</div>
-        </div>
+      <!-- SIDEBAR -->
+      <aside class="col-span-12 lg:col-span-4">
+        <div class="card p-6 lg:sticky lg:top-24">
+          <p class="kicker" style="color: rgba(29,8,94,0.70);">Quick facts</p>
+          <div class="mt-3 rule"></div>
 
-        <div class="item">
-          <div class="label">Tech stack</div>
-          <div class="value">Power BI · DAX · data modelling · interactive visuals</div>
-        </div>
+          <div class="mt-4">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Use case</p>
+            <p class="mt-2 text-sm muted">Threshold-based CRM targeting decision support.</p>
+          </div>
 
-        <div class="item">
-          <div class="label">Audience</div>
-          <div class="value">Marketing / CRM stakeholders making campaign decisions</div>
-        </div>
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Tech stack</p>
+            <p class="mt-2 text-sm muted">Power BI · DAX · interactive dashboard design</p>
+          </div>
 
-        <div class="item">
-          <div class="label">Note</div>
-          <div class="value">Interactive embed can be added later if required; PDF keeps the portfolio lightweight.</div>
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Primary output</p>
+            <a class="btn-primary mt-3" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">Open PDF walkthrough</a>
+          </div>
+
+          <div class="mt-5">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Supporting evidence</p>
+            <div class="mt-3 grid gap-2">
+              <a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank" rel="noopener">Repo (files) →</a>
+              <a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/blob/main/CRM_Analytics_Portfolio.pbix" target="_blank" rel="noopener">PBIX →</a>
+              <a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab →</a>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Preview</p>
+            <p class="mt-2 text-xs" style="color: var(--gray-med);">These images are stored in the Power BI repo (assets/).</p>
+            <div class="mt-3 grid gap-3">
+              <img class="shot" alt="Patterns view" src="https://raw.githubusercontent.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/main/assets/1.Patterns.png">
+              <img class="shot" alt="Targeting simulator" src="https://raw.githubusercontent.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/main/assets/4.Targeting-simulator.png">
+            </div>
+          </div>
+
+          <p class="mt-6 text-xs" style="color: var(--gray-med);">
+            Responsive: sidebar stacks below content on mobile/tablet and becomes sticky on desktop.
+          </p>
         </div>
       </aside>
-    </section>
 
-    <footer>
-      <span>© 2026 Valesca Bravo</span>
-      <span>VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL DARK #0a9a88</span>
+    </div>
+
+    <footer class="pt-14 text-sm opacity-80">
+      © 2026 Valesca Bravo · VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88
     </footer>
-  </div>
+  </main>
 </body>
 </html>
