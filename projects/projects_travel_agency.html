@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Agency Booking System (PostgreSQL) | BA Project</title>
+  <meta name="description" content="Business Analyst project: requirements-led booking database design in PostgreSQL with ERD artefacts, constraints, validation queries and outputs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+
+:root{
+  /* Valesca Bravo — portfolio palette */
+  --navy:#1d085e;
+  --teal:#13d6c1;
+  --teal-dark:#0a9a88;
+
+  --paper:#ffffff;        /* WHITE */
+  --surface:#f8f9fa;      /* GRAY_LIGHT */
+  --surface-2:#eef2f2;    /* soft neutral for chips */
+  --border:#e5e7eb;
+
+  --ink:#343a40;          /* GRAY_DARK */
+  --muted:#6c757d;        /* GRAY_MED */
+  --muted-2:#6c757d;
+
+  --brand:var(--teal);
+  --brand-ink:var(--teal-dark);
+  --link:var(--teal-dark);
+  --ring:rgba(19,214,193,.28);
+
+  --font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono","Courier New", monospace;
+
+  --radius:16px;
+  --shadow: 0 10px 26px rgba(29,8,94,.08);
+}
+
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--paper);
+}
+
+
+a{color:inherit; text-decoration:none}
+a:hover{color:var(--brand-ink)}
+p{line-height:1.65; margin:0 0 14px}
+ul{margin:0 0 14px; padding-left:18px}
+li{margin:6px 0}
+code, pre{font-family:var(--mono)}
+pre{
+  background:var(--navy);
+  color:#ffffff;
+  padding:14px 16px;
+  border-radius:12px;
+  overflow:auto;
+  border:1px solid rgba(29,8,94,.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+pre code{color:inherit}
+.kbd{
+  font-family:var(--mono);
+  font-size:.9rem;
+  padding:2px 6px;
+  border-radius:8px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+}
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px 64px;
+}
+
+.hero{
+  padding:42px 0 18px;
+  color:var(--ink);
+  border-bottom:1px solid var(--border);
+}
+
+.kicker{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.kicker .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:var(--brand);
+  box-shadow:0 0 0 6px rgba(19,214,193,.18);
+}
+
+.h1{
+  margin:10px 0 10px;
+  font-size:30px;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  font-weight:800;
+  color:var(--navy);
+}
+
+.subhead{
+  max-width:70ch;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--muted);
+  margin:0 0 18px;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 18px;
+}
+.chip{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:6px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:12px;
+  font-weight:600;
+  font-size:14px;
+  border:1px solid var(--border);
+  background:var(--paper);
+  color:var(--navy);
+  transition:.15s ease;
+}
+.btn:hover{transform:translateY(-1px); border-color:rgba(19,214,193,.65); box-shadow:0 0 0 6px rgba(19,214,193,.16)}
+.btn.primary{
+  background:linear-gradient(180deg, rgba(19,214,193,1), rgba(10,154,136,1));
+  border-color:rgba(19,214,193,.75);
+  color:var(--navy);
+}
+.btn.primary:hover{border-color:rgba(10,154,136,.95)}
+
+
+.shell{
+  display:grid;
+  grid-template-columns: 280px 1fr;
+  gap:18px;
+  align-items:start;
+  margin-top:18px;
+}
+
+@media (max-width: 960px){
+  .shell{grid-template-columns: 1fr}
+}
+
+.sidebar{
+  position:sticky;
+  top:18px;
+}
+.nav{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.nav .title{
+  padding:14px 14px 10px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+}
+.nav a{
+  display:block;
+  padding:10px 14px;
+  font-size:14px;
+  color:var(--ink);
+  border-left:3px solid transparent;
+}
+.nav a:hover{
+  background:var(--surface);
+  border-left-color:rgba(19,214,193,.75);
+}
+.nav a small{
+  display:block;
+  font-size:12px;
+  color:var(--muted-2);
+  margin-top:2px;
+}
+
+.card{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px 18px 16px;
+}
+
+.section{
+  margin-bottom:16px;
+}
+.section h2{
+  margin:0 0 10px;
+  font-size:18px;
+  letter-spacing:-0.01em;
+}
+.section h3{
+  margin:12px 0 8px;
+  font-size:15px;
+}
+hr.rule{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:14px 0;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+@media (max-width: 760px){
+  .grid-2{grid-template-columns:1fr}
+}
+
+.callout{
+  border-radius:14px;
+  border:1px solid rgba(19,214,193,.35);
+  background:rgba(19,214,193,.10);
+  padding:12px 14px;
+  margin:12px 0 14px;
+}
+.callout strong{color:var(--brand-ink)}
+.meta{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+.meta .kv{
+  padding:10px 12px;
+  border-radius:14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+}
+.k{font-size:12px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.10em}
+.v{margin-top:6px; font-size:14px; color:var(--ink)}
+.table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  overflow:hidden;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--paper);
+}
+.table th, .table td{
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  vertical-align:top;
+  font-size:14px;
+}
+.table th{
+  background:var(--surface);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.10em;
+  color:var(--muted);
+}
+.table tr:last-child td{border-bottom:0}
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.details{
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+  background:var(--surface);
+}
+details summary{
+  cursor:pointer;
+  font-weight:700;
+  color:var(--ink);
+}
+details summary::-webkit-details-marker{display:none}
+details summary:before{
+  content:"▸";
+  display:inline-block;
+  margin-right:8px;
+  color:var(--brand-ink);
+}
+details[open] summary:before{content:"▾"}
+.footer{
+  margin-top:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.footer a{color:var(--brand-ink); font-weight:700}
+
+/* Content links (avoid affecting buttons/nav) */
+main a:not(.btn):not(.chip){
+  color:var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+main a:not(.btn):not(.chip):hover{color:var(--teal-dark)}
+/* Focus ring */
+:focus-visible{outline:3px solid var(--ring); outline-offset:2px}
+/* Headings */
+.section h2, .section h3{ color: var(--navy); }
+
+/* --- Portfolio-style backdrop (navy/purple grid) --- */
+body{
+  background:
+    radial-gradient(1200px 700px at 30% 0%, rgba(19,214,193,.18) 0%, rgba(19,214,193,0) 55%),
+    radial-gradient(1000px 650px at 85% 20%, rgba(29,8,94,.55) 0%, rgba(29,8,94,0) 60%),
+    linear-gradient(180deg, #12033f 0%, #0b0330 55%, #0b0330 100%);
+  color: var(--ink);
+}
+
+/* subtle grid overlay */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: .55;
+}
+
+/* white card to keep reading comfortable */
+.page{
+  max-width: 1160px;
+  margin: 34px auto 64px;
+  padding: 0;
+  background: var(--paper);
+  border-radius: 26px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.08);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 1200px){
+  .page{ margin: 22px 14px 48px; }
+}
+
+/* make existing wrap respect the page container */
+.wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 22px 64px;
+}
+
+.hero{
+  padding: 42px 0 18px;
+}
+
+/* nicer link colour on dark backdrop areas (buttons already handled) */
+.btn{
+  border-color: rgba(29,8,94,.16);
+}
+
+/* credits block styling */
+.credits-note{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+  
+/* --- Media responsiveness (prevents ERD images being cut off) --- */
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+.card img{
+  max-width:100%;
+  height:auto;
+}
+figure.media{
+  margin:12px 0 0;
+}
+.media-scroll{
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+}
+.media-scroll img{
+  max-width:100%;
+  height:auto;
+}
+
+</style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="wrap">
+      <header class="hero">
+        <div class="kicker"><span class="dot"></span> Project · Business analysis</div>
+        <h1 class="h1">Travel Agency Booking System (PostgreSQL)</h1>
+        <p class="subhead">
+          Requirements-led database design for a simplified booking flow. Deliverables include an ERD, integrity constraints,
+          validation tests and query outputs — focused on design decisions and verified outcomes (no performance claims).
+        </p>
+
+        <div class="chips" aria-label="Tags">
+          <span class="chip">Business Analysis</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">ERD</span>
+          <span class="chip">Data Integrity</span>
+          <span class="chip">Validation (SQL)</span>
+          <span class="chip">Reporting</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank" rel="noopener">Open full BA case study (HTML)</a>
+          <a class="btn" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank" rel="noopener">View GitHub repo</a>
+          <a class="btn" href="/#projects">Back to projects</a>
+        </div>
+      </header>
+
+      <div class="shell">
+        <aside class="sidebar">
+          <nav class="nav" aria-label="On-page navigation">
+            <div class="title">Contents</div>
+            <a href="#overview">Overview<small>What was built and why</small></a>
+            <a href="#context">Business context & goals<small>KPIs and constraints</small></a>
+            <a href="#requirements">Requirements (FR/NFR + MoSCoW)<small>Scope and priorities</small></a>
+            <a href="#model">Data model<small>ERD and dictionary</small></a>
+            <a href="#validation">Validation & outcomes<small>What was verified</small></a>
+            <a href="#evidence">Evidence outputs<small>Query exports</small></a>
+            <a href="#credits">Credits<small>Attribution</small></a>
+            <a href="#appendix">Appendix<small>Original files</small></a>
+            <a href="#links">Links<small>Repo + scripts</small></a>
+          </nav>
+
+          <div class="card compact">
+            <div class="label">Quick links</div>
+            <a class="link" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank" rel="noopener">Full BA case study (HTML)</a>
+            <a class="link" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank" rel="noopener">GitHub repo</a>
+            <a class="link" href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/schema.sql" target="_blank" rel="noopener">schema.sql</a>
+            <a class="link" href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/validation_queries.sql" target="_blank" rel="noopener">validation_queries.sql</a>
+          </div>
+        </aside>
+
+        <main class="content">
+
+          <section class="section" id="overview">
+            <h2>Overview</h2>
+            <p>
+              This project translates a compact set of booking requirements into a normalised relational model in PostgreSQL,
+              makes business rules explicit via constraints, and validates the design through test and reporting queries.
+            </p>
+
+            <div class="grid">
+              <div class="card">
+                <h3>What I delivered</h3>
+                <ul>
+                  <li>PostgreSQL schema (<span class="kbd">Client</span>, <span class="kbd">Package</span>, <span class="kbd">Reservation</span>).</li>
+                  <li>ERD artefacts (clean PNG + <span class="kbd">.pgerd</span> export).</li>
+                  <li>Validation and reporting queries, plus exported query outputs.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>BA lens</h3>
+                <ul>
+                  <li>Requirements → business rules → constraints → tests.</li>
+                  <li>Traceability from requirements to data entities and validation queries.</li>
+                  <li>Clear scope, assumptions and iteration plan.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="context">
+            <h2>Business context & goals</h2>
+            <p>
+              A travel agency needs a structured way to store clients, purchased packages, and reservations
+              (travel date, party size and price). The database should prevent invalid bookings and support lightweight reporting.
+            </p>
+
+            <div class="grid">
+              <div class="card">
+                <h3>Goals</h3>
+                <ul>
+                  <li>Keep client, package and reservation records consistent.</li>
+                  <li>Prevent reservations without an existing package.</li>
+                  <li>Enable basic reporting (volume, revenue, destinations, repeat purchasing).</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>Proposed KPIs (queryable)</h3>
+                <ul>
+                  <li>Monthly reservations volume.</li>
+                  <li>Monthly revenue (sum of reservation prices).</li>
+                  <li>Average booking value by month.</li>
+                  <li>Top destinations by volume and by revenue.</li>
+                  <li>Packages per client (repeat purchasing distribution).</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              <strong>Design note:</strong> the current schema enforces <em>one reservation per package</em> via
+              <span class="kbd">UNIQUE(PackageCode)</span> on <span class="kbd">Reservation</span>. This is an explicit v1 rule and is listed as a trade-off in “Next steps”.
+            </p>
+          </section>
+
+          <section class="section" id="requirements">
+            <h2>Requirements (FR/NFR + MoSCoW)</h2>
+
+            <div class="grid">
+              <div class="card">
+                <h3>Functional requirements</h3>
+                <ul>
+                  <li><strong>FR1:</strong> Store clients with a unique identifier.</li>
+                  <li><strong>FR2:</strong> Store packages linked to a client.</li>
+                  <li><strong>FR3:</strong> Store reservations linked to a package (date, party size, price).</li>
+                  <li><strong>FR4:</strong> Support basic operational reporting.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>Non-functional requirements</h3>
+                <ul>
+                  <li><strong>NFR1 (Data quality):</strong> enforce PK/FK integrity and key business rules.</li>
+                  <li><strong>NFR2 (Maintainability):</strong> scripts versioned with clear naming.</li>
+                  <li><strong>NFR3 (Auditability):</strong> reproducible queries and outputs.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Must</th>
+                    <th>Should</th>
+                    <th>Could</th>
+                    <th>Won’t (v1)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>FR1, FR2, FR3 · NFR1</td>
+                    <td>FR4 · NFR2</td>
+                    <td>NFR3 (outputs) · completeness snapshot</td>
+                    <td>Payments, refunds, auth/roles · multi-reservation per package</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="section" id="model">
+            <h2>Data model</h2>
+
+            <div class="grid">
+              <div class="card">
+                <h3>Entities</h3>
+                <ul>
+                  <li><strong>Client</strong>: customer master data.</li>
+                  <li><strong>Package</strong>: destination + transport + accommodation, linked to a client.</li>
+                  <li><strong>Reservation</strong>: booking record (travel date, party size, price), linked to a package.</li>
+                </ul>
+
+                <h3>Relationships (as implemented)</h3>
+                <ul>
+                  <li><span class="kbd">Client (1) → (0..N) Package</span> via <span class="kbd">Package.ClientID</span> (FK).</li>
+                  <li><span class="kbd">Package (1) ↔ (0..1) Reservation</span> via <span class="kbd">Reservation.PackageCode</span> (FK + UNIQUE).</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <h3>ERD artefacts</h3>
+                <ul>
+                  <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/assets/Travel_Agency_ERD_EN_clean.png" target="_blank" rel="noopener">Clean ERD PNG</a></li>
+                  <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/diagrams/ERD.pgerd" target="_blank" rel="noopener">ERD export (.pgerd)</a></li>
+                </ul>
+
+                <figure class="media">
+                <div class="media-scroll">
+                  <img src="https://valescabravo.github.io/Travel-Agency-Booking-System/assets/Travel_Agency_ERD_EN_clean.png" alt="Travel Agency ERD (clean)" />
+                </div>
+              </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="validation">
+            <h2>Validation & outcomes</h2>
+            <p>
+              Validation focuses on integrity checks, rule enforcement and basic reporting sanity — documented in SQL and supported by exported outputs.
+            </p>
+
+            <div class="grid">
+              <div class="card">
+                <h3>What was verified</h3>
+                <ul>
+                  <li>Primary keys and foreign keys operate as expected.</li>
+                  <li>Reservation requires a valid package (FK).</li>
+                  <li>One reservation per package (UNIQUE on PackageCode).</li>
+                  <li>Aggregations return expected groupings (month, destination).</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>Where to see it</h3>
+                <ul>
+                  <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/validation_queries.sql" target="_blank" rel="noopener">validation_queries.sql</a></li>
+                  <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/assets/queries/" target="_blank" rel="noopener">CSV query outputs</a></li>
+                </ul>
+                <p class="note">
+                  Outputs are exported with <strong>IDs only</strong> (public-safe) where client details could appear.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="evidence">
+            <h2>Evidence outputs</h2>
+            <p class="muted">
+              Query outputs are included to support review and to demonstrate reproducibility of the validation/reporting queries.
+            </p>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>File</th>
+                    <th>What it shows</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="kbd">query1.csv</span></td><td>Reservations by month</td></tr>
+                  <tr><td><span class="kbd">query2.csv</span></td><td>Revenue by month</td></tr>
+                  <tr><td><span class="kbd">query3.csv</span></td><td>Average booking value by month</td></tr>
+                  <tr><td><span class="kbd">query4.csv</span></td><td>Packages per client (repeat purchasing)</td></tr>
+                  <tr><td><span class="kbd">query5.csv</span></td><td>Top destinations (volume)</td></tr>
+                  <tr><td><span class="kbd">query6.csv</span></td><td>Destination revenue</td></tr>
+                  <tr><td><span class="kbd">query7.csv</span></td><td>Client booking history (IDs only)</td></tr>
+                  <tr><td><span class="kbd">query8.csv</span></td><td>Completeness snapshot</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Folder: <a href="https://valescabravo.github.io/Travel-Agency-Booking-System/assets/queries/" target="_blank" rel="noopener">assets/queries/</a>
+            </p>
+          </section>
+
+          <section class="section" id="credits">
+            <h2>Credits</h2>
+            <div class="credits-note">
+              <p>
+                <strong>Original academic submission (team):</strong>
+                Valesca Bravo, Leonardo Rivas Duarte, Marta del Carmen Mayoral Santos, Mertxe Galán Espiga.
+              </p>
+              <p>
+                <strong>Portfolio adaptation (this page):</strong>
+                narrative structure, UK English copy, and presentation curated by Valesca Bravo.
+                The original submission is provided in the appendix for transparency and attribution.
+              </p>
+            </div>
+          </section>
+
+          <section class="section" id="appendix">
+            <h2>Appendix</h2>
+            <p>
+              The original submission files are available in the repository <span class="kbd">/archive</span> folder.
+            </p>
+            <ul>
+              <li><strong>Archive folder:</strong> <a href="https://github.com/ValescaBravo/Travel-Agency-Booking-System/tree/main/archive" target="_blank" rel="noopener">/archive on GitHub</a></li>
+              <li><strong>Original academic report (PDF):</strong> <a href="https://github.com/ValescaBravo/Travel-Agency-Booking-System/blob/main/archive/Original_En.pdf" target="_blank" rel="noopener">Original_En.pdf</a></li>
+            </ul>
+            <p class="footer">
+              If you rename/move files, keep the links consistent so the appendix remains portable.
+            </p>
+          </section>
+
+          <section class="section" id="links">
+            <h2>Links</h2>
+            <ul>
+              <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank" rel="noopener">Full BA case study (GitHub Pages)</a></li>
+              <li><a href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank" rel="noopener">Repository (GitHub)</a></li>
+              <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/schema.sql" target="_blank" rel="noopener">schema.sql</a></li>
+              <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/validation_queries.sql" target="_blank" rel="noopener">validation_queries.sql</a></li>
+              <li><a href="https://valescabravo.github.io/Travel-Agency-Booking-System/src/reporting_queries.sql" target="_blank" rel="noopener">reporting_queries.sql</a></li>
+            </ul>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
