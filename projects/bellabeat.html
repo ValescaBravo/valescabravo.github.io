@@ -1,1 +1,683 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Bellabeat — Product Analytics Case Study (R) | Valesca Bravo</title>
+  <meta name="description" content="Product-style insights from wearable activity data, translated into measurement-ready recommendations." />
+  <style>
+    :root{
+      --navy:#1d085e;
+      --teal:#13d6c1;
+      --teal-dark:#0a9a88;
+
+      --bg:#ffffff;
+      --text:#111827;     /* slate-900 */
+      --muted:#6b7280;    /* slate-500 */
+      --muted-2:#94a3b8;  /* slate-400 */
+      --border:rgba(29,8,94,.12);
+      --border-2:rgba(17,24,39,.10);
+      --surface:#ffffff;
+      --surface-2:rgba(29,8,94,.03);
+      --shadow:0 8px 24px rgba(17,24,39,.06);
+
+      --radius:16px;
+      --radius-sm:12px;
+      --maxw:1100px;
+
+      --focus: 0 0 0 3px rgba(19,214,193,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    a{color:inherit}
+    a:focus-visible, button:focus-visible{
+      outline:none;
+      box-shadow: var(--focus);
+      border-radius: 10px;
+    }
+
+    .skip-link{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip-link:focus{
+      position:fixed; left:16px; top:16px; width:auto; height:auto;
+      padding:10px 12px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      z-index:9999;
+      box-shadow: var(--shadow);
+    }
+
+    /* Layout */
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:28px 18px 56px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background:var(--surface);
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+      min-width: 180px;
+    }
+    .brand .eyebrow{
+      font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--muted);
+    }
+    .brand .name{
+      font-weight:800; color:var(--navy); font-size:16px;
+      line-height:1.1;
+    }
+    nav[aria-label="Primary"]{
+      display:flex; flex-wrap:wrap; gap:10px 14px;
+      justify-content:flex-end;
+    }
+    .navlink{
+      font-size:14px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .navlink:hover{background:var(--surface-2); color:var(--navy)}
+    .navlink.active{color:var(--navy); background:rgba(19,214,193,.12)}
+    .navlink:focus-visible{box-shadow:var(--focus)}
+
+    main{margin-top:22px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.65fr .95fr;
+      gap:22px;
+      align-items:start;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+      nav[aria-label="Primary"]{justify-content:flex-start}
+      .brand{min-width:auto}
+    }
+
+    /* Hero */
+    .hero{
+      padding:22px 18px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:linear-gradient(0deg, rgba(29,8,94,.02), rgba(29,8,94,.02)), #fff;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    .dot{
+      width:9px; height:9px;
+      border-radius:50%;
+      background:var(--teal);
+      box-shadow: 0 0 0 3px rgba(19,214,193,.18);
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:34px;
+      line-height:1.15;
+      color:var(--navy);
+      letter-spacing:-0.02em;
+    }
+    .subhead{
+      margin:0 0 14px;
+      color:var(--text);
+      font-size:16px;
+      max-width: 70ch;
+    }
+
+    /* Chips + buttons */
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px}
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--navy);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn-primary, .btn-teal, .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      border:1px solid transparent;
+      background:transparent;
+      transition: transform .06s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
+    }
+    .btn-primary{
+      background:var(--navy);
+      color:#fff;
+      box-shadow: 0 8px 18px rgba(29,8,94,.14);
+    }
+    .btn-primary:hover{transform: translateY(-1px)}
+    .btn-teal{
+      background: rgba(19,214,193,.14);
+      color: var(--teal-dark);
+      border-color: rgba(10,154,136,.20);
+    }
+    .btn-teal:hover{
+      background: rgba(19,214,193,.18);
+      transform: translateY(-1px);
+    }
+    .btn-ghost{
+      border-color: var(--border);
+      color: var(--muted);
+      background:#fff;
+    }
+    .btn-ghost:hover{background:var(--surface-2); color:var(--navy)}
+
+    @media (prefers-reduced-motion: reduce){
+      .btn-primary, .btn-teal, .btn-ghost{transition:none}
+      .btn-primary:hover, .btn-teal:hover{transform:none}
+    }
+
+    /* Sections */
+    section{
+      margin-top:18px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background:#fff;
+      overflow:hidden;
+    }
+    .section-head{
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+      background: rgba(29,8,94,.02);
+    }
+    .section-head h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.02em;
+      color:var(--navy);
+    }
+    .section-body{padding:16px}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+
+    ul.clean{margin:0; padding-left:18px}
+    ul.clean li{margin:8px 0}
+    .bullets{margin:0; padding-left:18px}
+
+    /* Insight / recommendation cards */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    @media (max-width: 720px){
+      .cards{grid-template-columns:1fr}
+      h1{font-size:28px}
+    }
+    .card{
+      border:1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      background:#fff;
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size:14px;
+      color:var(--navy);
+      letter-spacing:.01em;
+    }
+    .card p{margin:0; color:var(--text); font-size:14px}
+    .card .meta{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      border-top:1px dashed rgba(17,24,39,.14);
+      padding-top:10px;
+    }
+
+    /* Table */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      overflow:hidden;
+      background:#fff;
+    }
+    caption{
+      text-align:left;
+      padding:10px 12px;
+      font-weight:700;
+      color:var(--navy);
+      background: rgba(29,8,94,.02);
+      border-bottom:1px solid var(--border-2);
+    }
+    th, td{
+      text-align:left;
+      vertical-align:top;
+      padding:10px 12px;
+      font-size:14px;
+      border-bottom:1px solid rgba(17,24,39,.08);
+    }
+    th{
+      font-size:13px;
+      letter-spacing:.02em;
+      text-transform:none;
+      color:var(--muted);
+      background: rgba(29,8,94,.01);
+      width: 24%;
+    }
+    tr:last-child th, tr:last-child td{border-bottom:none}
+
+    /* Sidebar */
+    aside .panel{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background:#fff;
+      overflow:hidden;
+      position: sticky;
+      top:16px;
+    }
+    @media (max-width: 920px){
+      aside .panel{position: static}
+    }
+    .panel .panel-head{
+      padding:14px 16px;
+      background: rgba(19,214,193,.12);
+      border-bottom:1px solid rgba(10,154,136,.20);
+    }
+    .panel .panel-head h2{
+      margin:0;
+      font-size:14px;
+      color:var(--teal-dark);
+      letter-spacing:.02em;
+    }
+    .panel .panel-body{padding:14px 16px}
+    .kv{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap:8px 10px;
+      font-size:14px;
+      margin:0;
+    }
+    .kv dt{color:var(--muted); font-weight:700}
+    .kv dd{margin:0; color:var(--text)}
+    .rule{height:1px; background: rgba(17,24,39,.10); margin:14px 0}
+
+    .link{
+      color: var(--navy);
+      text-decoration:none;
+      font-weight:700;
+    }
+    .link:hover{text-decoration:underline}
+    .link:focus-visible{box-shadow:var(--focus)}
+
+    .callout{
+      border:1px solid rgba(19,214,193,.28);
+      background: rgba(19,214,193,.10);
+      border-radius: var(--radius-sm);
+      padding:12px 14px;
+      color: var(--teal-dark);
+      font-size:14px;
+    }
+
+    footer{
+      margin-top:26px;
+      padding-top:16px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .footer-badge{
+      font-weight:800;
+      color:var(--navy);
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand" aria-label="Site identity">
+        <div class="eyebrow">Portfolio · Project Snapshot</div>
+        <div class="name">Valesca Bravo</div>
+      </div>
+
+      <nav aria-label="Primary">
+        <a class="navlink" href="/#projects">Projects</a>
+        <a class="navlink" href="/#about">About</a>
+        <a class="navlink" href="/#recommendation">Recommendation</a>
+        <a class="navlink" href="/#contact">Contact</a>
+        <a class="navlink" href="/cv/Valesca_Bravo_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+      </nav>
+    </header>
+
+    <main id="content" class="grid">
+      <article>
+        <!-- HERO -->
+        <section class="hero" aria-labelledby="hero-title">
+          <p class="kicker"><span class="dot" aria-hidden="true"></span> Product analytics</p>
+          <h1 id="hero-title">Bellabeat — Product Analytics Case Study (R)</h1>
+          <p class="subhead">
+            Product-style insights from wearable activity data, translated into engagement hypotheses and measurement-ready recommendations.
+          </p>
+
+          <div class="chips" aria-label="Tags">
+            <span class="chip">R</span>
+            <span class="chip">EDA</span>
+            <span class="chip">Product Analytics</span>
+            <span class="chip">Storytelling</span>
+          </div>
+
+          <div class="actions" aria-label="Primary links">
+            <a class="btn-primary" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Full Report (HTML)</a>
+            <a class="btn-teal" href="https://github.com/ValescaBravo/Bellabeat" target="_blank" rel="noopener">Code (GitHub)</a>
+            <a class="btn-ghost" href="/#projects">Back to projects</a>
+          </div>
+        </section>
+
+        <!-- EXEC SUMMARY -->
+        <section aria-labelledby="exec-title">
+          <div class="section-head"><h2 id="exec-title">Executive summary</h2></div>
+          <div class="section-body">
+            <ul class="clean">
+              <li><strong>What it is:</strong> a product analytics case study using public wearable activity logs to explore behavioural patterns and inform engagement strategy proposals.</li>
+              <li><strong>Dataset type:</strong> aggregated activity and wellness signals (e.g., steps, activity intensity, calories and sleep logs) captured by fitness trackers.</li>
+              <li><strong>Approach:</strong> data cleaning, exploratory analysis and behavioural slicing (time-of-day, day-of-week, activity mix), then translating patterns into product/marketing hypotheses.</li>
+              <li><strong>Output:</strong> a narrative report (EDA + charts) and a set of recommendations mapped to observed patterns, each paired with a measurement idea.</li>
+              <li><strong>Tooling:</strong> R / RStudio (tidy data workflows and visual exploration).</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- CONTEXT & GOAL -->
+        <section aria-labelledby="context-title">
+          <div class="section-head"><h2 id="context-title">Business context &amp; goal</h2></div>
+          <div class="section-body">
+            <p>
+              Bellabeat is a wellness brand operating in the wearables and health-app category, where sustained engagement (not just initial downloads)
+              is a key driver of long-term value. In this case study, I treat the dataset as a proxy for how people may use consumer fitness tracking features.
+            </p>
+            <p class="muted">
+              Goal: understand usage patterns in wearable activity data and propose engagement strategies that could be tested in a real product context.
+            </p>
+          </div>
+        </section>
+
+        <!-- STAKEHOLDERS -->
+        <section aria-labelledby="stake-title">
+          <div class="section-head"><h2 id="stake-title">Stakeholders &amp; questions</h2></div>
+          <div class="section-body">
+            <table>
+              <caption>Who would use these insights?</caption>
+              <tbody>
+                <tr>
+                  <th scope="row">Product manager</th>
+                  <td><strong>Which behaviours indicate habit formation vs drop-off?</strong></td>
+                  <td>Supports feature prioritisation (nudges, goals, summaries) and retention experiments.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Marketing lead</th>
+                  <td><strong>When and how should we message users?</strong></td>
+                  <td>Aligns lifecycle comms with real usage rhythms (timing, content themes, segmentation).</td>
+                </tr>
+                <tr>
+                  <th scope="row">Leadership</th>
+                  <td><strong>What engagement bets are worth testing?</strong></td>
+                  <td>Turns descriptive patterns into a focused test roadmap and measurable outcomes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- DATA & METHOD -->
+        <section aria-labelledby="method-title">
+          <div class="section-head"><h2 id="method-title">Data &amp; method</h2></div>
+          <div class="section-body">
+            <p>
+              The dataset represents wearable activity logs recorded over time. It is suitable for descriptive analysis of usage behaviour:
+              time-based trends, activity mix, and variability across users.
+            </p>
+
+            <div class="callout" role="note" aria-label="Privacy note">
+              Privacy: this page does not display personal fields or raw user identifiers. Any analysis is discussed at an aggregated, behavioural level.
+            </div>
+
+            <ul class="clean" style="margin-top:12px">
+              <li><strong>Cleaning:</strong> standardised timestamps, resolved duplicates/missing entries, and aligned daily vs hourly granularity.</li>
+              <li><strong>Exploration:</strong> distributions (activity levels, sleep duration), time patterns (hour/day/week), and variability across users.</li>
+              <li><strong>Behavioural slicing:</strong> compared patterns by day-of-week, time-of-day, and activity intensity mix.</li>
+              <li><strong>Storytelling:</strong> converted findings into product hypotheses and proposed measurement plans.</li>
+              <li><strong>Tools:</strong> R / RStudio.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- INSIGHTS -->
+        <section aria-labelledby="insights-title">
+          <div class="section-head"><h2 id="insights-title">Key insights (observed patterns)</h2></div>
+          <div class="section-body">
+            <div class="cards" role="list">
+              <div class="card" role="listitem">
+                <h3>1) Activity levels show high variability</h3>
+                <p>
+                  The dataset indicates wide differences in daily movement between users and across days, suggesting distinct engagement “profiles”
+                  (consistent trackers vs sporadic users).
+                </p>
+                <div class="meta">Interpretation: segmentation is likely more useful than one-size-fits-all messaging.</div>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>2) Usage rhythms cluster around daily routines</h3>
+                <p>
+                  Patterns suggest activity tends to concentrate around routine windows (commutes, breaks, evenings), rather than being evenly distributed.
+                </p>
+                <div class="meta">Interpretation: timing and context can improve the relevance of prompts and content.</div>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>3) Sedentary time is a dominant baseline</h3>
+                <p>
+                  A large portion of recorded time is low-activity, with bursts of moderate/vigorous movement. This indicates opportunity for “small wins”
+                  that fit real schedules.
+                </p>
+                <div class="meta">Interpretation: micro-interventions may be more realistic than large behaviour changes.</div>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>4) Day-of-week patterns suggest changing intent</h3>
+                <p>
+                  The dataset suggests behaviour differs across weekdays vs weekends (routine-led days vs flexible days), which can inform content themes and nudges.
+                </p>
+                <div class="meta">Interpretation: adapt messaging to “structured” vs “flex” days.</div>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>5) Sleep signals are inconsistent across users</h3>
+                <p>
+                  Sleep logging and duration appear uneven across participants, indicating that not all users track or maintain sleep habits consistently.
+                </p>
+                <div class="meta">Interpretation: sleep features may benefit from onboarding and clear value framing.</div>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>6) Tracking completeness varies</h3>
+                <p>
+                  Some users contribute richer logs than others, suggesting that “data availability” itself may be an engagement indicator (and a constraint).
+                </p>
+                <div class="meta">Interpretation: design journeys that work even with partial tracking.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECOMMENDATIONS -->
+        <section aria-labelledby="reco-title">
+          <div class="section-head"><h2 id="reco-title">Recommendations (proposed actions)</h2></div>
+          <div class="section-body">
+            <div class="cards" role="list">
+              <div class="card" role="listitem">
+                <h3>Segment users by engagement profile</h3>
+                <p><strong>Proposed action:</strong> define lightweight segments (consistent, intermittent, onboarding) using recent tracking activity and completeness.</p>
+                <p><strong>Intended outcome:</strong> more relevant nudges and content, reduced message fatigue.</p>
+                <p><strong>Measurement idea:</strong> WAU/DAU proxy, tracking-days per week, notification opt-out rate.</p>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>Time nudges to routine windows</h3>
+                <p><strong>Proposed action:</strong> schedule prompts around observed routine clusters (e.g., midday check-in, evening recap) with user-controlled preferences.</p>
+                <p><strong>Intended outcome:</strong> improve prompt relevance and repeat usage.</p>
+                <p><strong>Measurement idea:</strong> prompt open rate, same-day activity logging after prompt, 7-day retention proxy.</p>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>Design “small win” movement interventions</h3>
+                <p><strong>Proposed action:</strong> introduce short, low-friction movement goals (2–5 minute breaks, streaks, gentle challenges).</p>
+                <p><strong>Intended outcome:</strong> reduce sedentary baseline and build habit loops.</p>
+                <p><strong>Measurement idea:</strong> sedentary-minutes share (proxy), completion rate of micro-goals, streak continuation.</p>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>Weekday vs weekend messaging strategy</h3>
+                <p><strong>Proposed action:</strong> tailor content themes: “routine support” on weekdays; “longer activities / reflection” on weekends.</p>
+                <p><strong>Intended outcome:</strong> match user intent and increase engagement with insights.</p>
+                <p><strong>Measurement idea:</strong> content click-through by day-of-week, session frequency split weekday/weekend.</p>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>Onboard sleep tracking with value cues</h3>
+                <p><strong>Proposed action:</strong> add guided setup, reminders, and a simple “sleep story” (consistency over perfection).</p>
+                <p><strong>Intended outcome:</strong> increase adoption of sleep features and improve data completeness.</p>
+                <p><strong>Measurement idea:</strong> sleep-feature adoption rate, weekly sleep-log days, feature return rate.</p>
+              </div>
+
+              <div class="card" role="listitem">
+                <h3>Build around partial data</h3>
+                <p><strong>Proposed action:</strong> ensure insights and summaries degrade gracefully (e.g., “based on the days you tracked…”), and encourage incremental tracking.</p>
+                <p><strong>Intended outcome:</strong> keep users engaged even when logs are incomplete.</p>
+                <p><strong>Measurement idea:</strong> % users receiving personalised summaries, completion of “add one more day” prompts.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LIMITATIONS -->
+        <section aria-labelledby="limits-title">
+          <div class="section-head"><h2 id="limits-title">Limitations</h2></div>
+          <div class="section-body">
+            <ul class="clean">
+              <li>Public dataset: not collected from Bellabeat’s product and may not reflect Bellabeat customer behaviour.</li>
+              <li>Sample not necessarily representative; participation and tracking completeness may bias observed patterns.</li>
+              <li>No causal attribution: patterns are descriptive and cannot prove that a change will cause an outcome.</li>
+              <li>No access to product instrumentation (events, funnels, cohorts), so engagement metrics here are proposed rather than measured.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- NEXT STEPS -->
+        <section aria-labelledby="next-title">
+          <div class="section-head"><h2 id="next-title">Next steps (with real product data)</h2></div>
+          <div class="section-body">
+            <ul class="clean">
+              <li><strong>Instrumentation:</strong> define an event taxonomy (onboarding, goal setting, notification interactions, insights views).</li>
+              <li><strong>Cohorts:</strong> retention by acquisition channel, device type, and early engagement signals (first 7 days).</li>
+              <li><strong>Funnels:</strong> activation funnel (install → permission → first track → first insight → repeat week).</li>
+              <li><strong>Experimentation:</strong> A/B test prompt timing, messaging, and “small win” interventions with guardrails.</li>
+              <li><strong>Outcome metrics:</strong> WAU/retention, feature adoption, habit proxies (tracked days/week), and churn predictors.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- LINKS & CREDITS -->
+        <section aria-labelledby="links-title">
+          <div class="section-head"><h2 id="links-title">Links &amp; credits</h2></div>
+          <div class="section-body">
+            <p style="margin-top:0"><strong>Links</strong></p>
+            <ul class="clean">
+              <li><a class="link" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Full report (HTML)</a></li>
+              <li><a class="link" href="https://github.com/ValescaBravo/Bellabeat" target="_blank" rel="noopener">Repository (code)</a></li>
+            </ul>
+
+            <div class="rule"></div>
+
+            <p style="margin:0">
+              <strong>Credits:</strong> dataset used for educational purposes; analysis and write-up authored by <strong>Valesca Bravo</strong>.
+            </p>
+          </div>
+        </section>
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside aria-label="Project sidebar">
+        <div class="panel">
+          <div class="panel-head"><h2>Quick facts</h2></div>
+          <div class="panel-body">
+            <dl class="kv">
+              <dt>Role</dt><dd>Business Analyst · Product Analytics storyteller · UX writer</dd>
+              <dt>Focus</dt><dd>Usage patterns → engagement hypotheses → measurable recommendations</dd>
+              <dt>Method</dt><dd>Cleaning · EDA · behavioural slicing · narrative synthesis</dd>
+              <dt>Stack</dt><dd>R · RStudio</dd>
+              <dt>Output</dt><dd><a class="link" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Open HTML report</a></dd>
+            </dl>
+
+            <div class="rule"></div>
+
+            <p class="small muted" style="margin:0">
+              Notes: This snapshot avoids personal data and does not claim internal business results. Recommendations are proposals designed to be validated with product instrumentation and experiments.
+            </p>
+
+            <div class="actions" style="margin-top:14px">
+              <a class="btn-primary" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Open report</a>
+              <a class="btn-teal" href="https://github.com/ValescaBravo/Bellabeat" target="_blank" rel="noopener">View code</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer aria-label="Footer">
+      <div><span class="footer-badge">© 2026 Valesca Bravo</span> · NAVY/TEAL palette</div>
+      <div class="muted">NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88</div>
+    </footer>
+  </div>
+</body>
+</html>
 
