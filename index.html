@@ -2,45 +2,66 @@
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valesca Bravo | Data Analyst </title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Valesca Bravo | Data Analyst — Portfolio & Interactive Lab</title>
+  <meta name="description" content="Portfolio of Valesca Bravo — Data Analyst specialised in CRM analytics, Power BI, Python, SQL, and Marketing Measurement. Explore projects and the Interactive Lab." />
+  <meta property="og:title" content="Valesca Bravo | Data Analyst Portfolio" />
+  <meta property="og:description" content="Decision-ready analytics, CRM segmentation, Power BI dashboards, and an Interactive Lab with 14+ tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://valescabravo.github.io/" />
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <style>
-    :root{
-      --navy:#1d085e;
-      --teal:#13d6c1;
-      --teal-dark:#0a9a88;
-      --white:#ffffff;
-      --gray-light:#f8f9fa;
-      --gray-med:#6c757d;
-      --gray-dark:#343a40;
-      --ink:#0b1220;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --navy: #1d085e;
+      --teal: #13d6c1;
+      --teal-dark: #0a9a88;
+      --white: #ffffff;
+      --gray-light: #f8f9fa;
+      --gray-med: #6c757d;
+      --gray-dark: #343a40;
+      --ink: #0b1220;
       --border: rgba(19,214,193,0.35);
       --radius: 18px;
       --shadow-float: 0 26px 70px rgba(0,0,0,0.30);
       --shadow-card: 0 14px 30px rgba(0,0,0,0.14);
     }
 
-    body{
-      margin:0;
-      font-family:'Inter', sans-serif;
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
       background: var(--navy);
       color: white;
+      scroll-behavior: smooth;
     }
 
-    .mag-texture{
-      background-image:
-        radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
-        radial-gradient(780px 380px at 82% 12%, rgba(255,255,255,0.10), transparent 55%),
-        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+    /* Smooth scroll offset for sticky header */
+    html {
+      scroll-padding-top: 90px;
+    }
+
+    .mag-texture {
+      background-image: radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
+                        radial-gradient(780px 380px at 82% 12%, rgba(255,255,255,0.10), transparent 55%),
+                        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
       background-size: auto, auto, 56px 56px, 56px 56px;
     }
 
-    .panel{
+    /* Hero panel improved: glassmorphism con gradiente suave */
+    .hero-panel {
+      background: rgba(13, 11, 30, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(19,214,193,0.35);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+
+    .panel {
       background: rgba(255,255,255,0.98);
       color: var(--ink);
       border-radius: 28px;
@@ -48,7 +69,7 @@
       border: 1px solid rgba(255,255,255,0.18);
     }
 
-    .card{
+    .card {
       background: rgba(255,255,255,0.98);
       color: var(--ink);
       border-radius: var(--radius);
@@ -56,16 +77,16 @@
       box-shadow: var(--shadow-card);
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    .card:hover{
+    .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 42px rgba(0,0,0,0.18);
-      border-color: rgba(19,214,193,0.55);
+      border-color: rgba(19,214,193,0.65);
     }
 
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(29,8,94,0.06);
@@ -76,13 +97,13 @@
       letter-spacing: 0.01em;
     }
 
-    .chip-teal{
+    .chip-teal {
       background: var(--teal);
       color: #061013;
       border-color: transparent;
     }
 
-    .kicker{
+    .kicker {
       font-size: 12px;
       font-weight: 900;
       letter-spacing: 0.18em;
@@ -90,28 +111,30 @@
       color: rgba(19,214,193,0.95);
     }
 
-    .headline{
+    .headline {
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1.02;
+      font-family: 'DM Serif Display', serif;
     }
 
-    .headline-accent{
+    .headline-accent {
       color: var(--teal);
       text-shadow: 0 10px 30px rgba(19,214,193,0.18);
     }
 
-    .btn-primary{
+    .btn-primary {
       background: var(--navy);
       color: white;
       border-radius: 14px;
       padding: 12px 16px;
       font-weight: 900;
       box-shadow: 0 14px 26px rgba(29,8,94,0.28);
+      transition: all 0.2s;
     }
-    .btn-primary:hover{ background:#12043f; }
+    .btn-primary:hover { background: #12043f; transform: translateY(-2px); }
 
-    .btn-teal{
+    .btn-teal {
       background: var(--teal);
       color: #061013;
       border-radius: 14px;
@@ -119,73 +142,92 @@
       font-weight: 900;
       box-shadow: 0 14px 26px rgba(19,214,193,0.26);
       border: 1px solid rgba(6,16,19,0.10);
+      transition: all 0.2s;
     }
-    .btn-teal:hover{ background: var(--teal-dark); }
+    .btn-teal:hover { background: var(--teal-dark); transform: translateY(-2px); }
 
-    .btn-ghost{
+    .btn-ghost {
       border-radius: 14px;
       padding: 12px 16px;
       font-weight: 900;
       border: 1px solid rgba(255,255,255,0.22);
       color: white;
       background: rgba(255,255,255,0.06);
+      transition: all 0.2s;
     }
-    .btn-ghost:hover{ background: rgba(255,255,255,0.10); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
 
-    .link{
+    .link {
       color: var(--navy);
       font-weight: 800;
+      transition: color 0.2s;
     }
-    .link:hover{ text-decoration: underline; }
+    .link:hover { text-decoration: underline; color: var(--teal-dark); }
 
-    .navglass{
-      background: rgba(10,8,30,0.40);
+    .navglass {
+      background: rgba(10,8,30,0.55);
       border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 18px;
     }
 
-    .rule{
+    .rule {
       height: 1px;
       background: rgba(19,214,193,0.30);
       width: 100%;
     }
 
-    /* Lab card accent */
-    .lab-card{
-      border-left: 4px solid var(--teal);
+    .lab-card {
+      background: linear-gradient(135deg, rgba(19,214,193,0.08) 0%, rgba(29,8,94,0.08) 100%);
+      border: 1px solid rgba(19,214,193,0.45);
+      border-radius: 28px;
+      transition: all 0.25s;
+    }
+    .lab-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 20px 40px rgba(19,214,193,0.15);
+      transform: translateY(-4px);
     }
 
-    /* Large stat */
-    .stat-num{
-      font-size: 3.5rem;
+    .stat-num {
+      font-size: 3.8rem;
       font-weight: 900;
       letter-spacing: -0.05em;
       line-height: 1;
-      color: var(--navy);
+      color: var(--teal);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Fade-in animation on scroll */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.6s ease-out forwards;
     }
   </style>
 </head>
-
 <body>
-  <!-- Top nav -->
+
+  <!-- Top nav mejorado con smooth scroll -->
   <header class="sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="navglass px-4 py-3 flex items-center justify-between">
         <div class="leading-tight">
-          <p class="text-xs font-semibold opacity-80">Portfolio</p>
-          <p class="text-base font-extrabold">Valesca Bravo</p>
+          <p class="text-xs font-semibold opacity-80 font-mono">Portfolio</p>
+          <p class="text-base font-extrabold tracking-tight">Valesca Bravo</p>
         </div>
 
         <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
-          <a href="#projects" class="hover:opacity-100">Projects</a>
-          <a href="#lab" class="hover:opacity-100">Lab</a>
-          <a href="#about" class="hover:opacity-100">About</a>
-          <a href="#recommendation" class="hover:opacity-100">Recommendation</a>
-          <a href="#contact" class="hover:opacity-100">Contact</a>
+          <a href="#projects" class="hover:text-teal-300 transition-colors">Projects</a>
+          <a href="#lab" class="hover:text-teal-300 transition-colors">Lab</a>
+          <a href="#about" class="hover:text-teal-300 transition-colors">About</a>
+          <a href="#recommendation" class="hover:text-teal-300 transition-colors">Recommendation</a>
+          <a href="#contact" class="hover:text-teal-300 transition-colors">Contact</a>
         </nav>
 
-        <a class="btn-ghost"
+        <a class="btn-ghost text-sm"
            href="assets/Valesca_Bravo_CV_Data_Analyst_ATS.pdf"
            download
            target="_blank"
@@ -196,23 +238,19 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO mejorado: panel glassmorphism + stats integradas -->
   <section class="mag-texture">
     <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
-
-      <div class="panel p-8 md:p-12">
+      <div class="hero-panel p-8 md:p-12 fade-up">
         <p class="kicker">INSIGHT &amp; STRATEGY</p>
-
         <h1 class="headline text-4xl md:text-6xl mt-3">
           Turning complex data into
           <span class="headline-accent">clear, trusted decisions</span>
         </h1>
-
-        <p class="mt-5 text-base md:text-lg" style="color: var(--gray-dark); max-width: 72ch;">
+        <p class="mt-5 text-base md:text-lg text-gray-200" style="max-width: 72ch;">
           Power BI + DAX dashboards built on SQL and Python. Strong Data Cleaning, Stakeholder Reporting and Data
           Governance—ICDL Data Protection certified.
         </p>
-
         <div class="mt-6 flex flex-wrap gap-3">
           <a class="btn-primary" href="#projects">View projects</a>
           <a class="btn-teal"
@@ -223,45 +261,49 @@
             Download CV
           </a>
         </div>
-
         <div class="mt-7 flex flex-wrap gap-2">
-          <span class="chip">Power BI (DAX)</span>
-          <span class="chip">Stakeholder Reporting</span>
-          <span class="chip">Data Cleaning (SQL/Python)</span>
-          <span class="chip">Data Governance</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Power BI (DAX)</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Stakeholder Reporting</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Data Cleaning (SQL/Python)</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Data Governance</span>
+        </div>
+      </div>
+
+      <!-- Stats row: evidencia cuantificable (nueva sección) -->
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
+          <div class="stat-num text-3xl md:text-4xl">8+</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Data Projects</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
+          <div class="stat-num text-3xl md:text-4xl">14</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Interactive Lab tools</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
+          <div class="stat-num text-3xl md:text-4xl">5+</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Years experience</p>
+        </div>
+        <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
+          <div class="stat-num text-3xl md:text-4xl">100%</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Stakeholder focus</p>
         </div>
       </div>
 
       <!-- Focus / Strength / Delivery -->
       <div class="mt-8 grid md:grid-cols-3 gap-4">
         <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-            Focus
-          </p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">
-            Decision-ready reporting for leaders and teams
-          </p>
+          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Focus</p>
+          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Decision-ready reporting for leaders and teams</p>
         </div>
-
         <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-            Strength
-          </p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">
-            Stakeholder reporting &amp; data storytelling
-          </p>
+          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Strength</p>
+          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Stakeholder reporting &amp; data storytelling</p>
         </div>
-
         <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-            Delivery
-          </p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">
-            Power BI dashboards + audit-ready analysis notes
-          </p>
+          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Delivery</p>
+          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Power BI dashboards + audit-ready analysis notes</p>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -274,307 +316,144 @@
         <div>
           <p class="kicker">Selected work</p>
           <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Projects</h2>
-          <p class="mt-2 text-sm opacity-80">
-            Project snapshots (fast to scan) + full reports (deep dive).
-          </p>
+          <p class="mt-2 text-sm opacity-80">Project snapshots (fast to scan) + full reports (deep dive).</p>
         </div>
       </div>
-
       <div class="mt-6 rule"></div>
 
-      <!-- Editorial grid: 12 columns -->
       <div class="grid grid-cols-12 gap-6 mt-6">
-
-        <!-- MAIN (cards) -->
+        <!-- MAIN cards -->
         <div class="col-span-12 lg:col-span-8">
           <div class="grid md:grid-cols-2 gap-6">
-
             <!-- Segmentation -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Customer Segmentation (RFM + PCA + KMeans)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Actionable segments combining value, recency, frequency and channel behaviour for CRM prioritisation.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Python</span>
-                <span class="chip">Clustering</span>
-                <span class="chip">RFM</span>
-              </div>
-
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Actionable segments combining value, recency, frequency and channel behaviour for CRM prioritisation.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Clustering</span><span class="chip">RFM</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/customer-segmentation.html">Project Snapshot</a>
-                <a class="btn-teal" href="/reports/Customer_Segmentation.htm" target="_blank" rel="noopener">Full Report</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/customer-segmentation.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="/reports/Customer_Segmentation.htm" target="_blank">Full Report</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Notebook:
-                <a class="link" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans/blob/main/notebooks/01_segmentation.ipynb" target="_blank" rel="noopener">01_segmentation.ipynb</a>
-              </p>
             </article>
-
             <!-- Predictive -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Predictive Modelling: Campaign Response</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Response scoring to improve targeting efficiency and maximise ROI under budget constraints.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Python</span>
-                <span class="chip">Random Forest</span>
-                <span class="chip">Model Evaluation</span>
-              </div>
-
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Response scoring to improve targeting efficiency and maximise ROI under budget constraints.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Random Forest</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/predictive-modelling.html">Project Snapshot</a>
-                <a class="btn-teal" href="/reports/predictive_model_report.htm" target="_blank" rel="noopener">Full Report</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/crm-predictive-response-modelling" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/predictive-modelling.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="/reports/predictive_model_report.htm" target="_blank">Full Report</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-predictive-response-modelling" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Notebook:
-                <a class="link" href="https://github.com/ValescaBravo/crm-predictive-response-modelling/blob/main/notebooks/01_predictive_response.ipynb" target="_blank" rel="noopener">01_predictive_response.ipynb</a>
-              </p>
             </article>
-
-            <!-- MMM (Meridian) -->
+            <!-- MMM Meridian -->
             <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Marketing Mix Modelling (MMM): Budget Optimisation with Google Meridian</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Bayesian MMM on weekly retail data to estimate incremental impact, response curves (diminishing returns) and a
-                constrained budget reallocation scenario.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Bayesian MMM</span>
-                <span class="chip">Google Meridian</span>
-              </div>
-
+              <h3 class="text-lg font-extrabold">MMM: Budget Optimisation (Google Meridian)</h3>
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Bayesian MMM on weekly retail data to estimate incremental impact, response curves and budget reallocation.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Bayesian MMM</span><span class="chip">Meridian</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">Project Snapshot</a>
-                <a class="btn-teal" href="/reports/final_report_bicycles.html" target="_blank" rel="noopener">Model Report (HTML)</a>
-                <a class="btn-teal" href="/reports/optimization_output.html" target="_blank" rel="noopener">Optimisation Report (HTML)</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/mmm-meridian-bikes" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="/reports/final_report_bicycles.html" target="_blank">Model Report</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/mmm-meridian-bikes" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Outputs: model diagnostics (R-hat), fit, ROI &amp; response curves, and an optimisation scenario.
-              </p>
             </article>
-
-            <!-- Pattern -->
+            <!-- Pattern Analysis -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour &amp; Lifecycle)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Exploratory CRM insights on value concentration, channel preference and lifecycle signals.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Python</span>
-                <span class="chip">EDA</span>
-                <span class="chip">CRM Insights</span>
-              </div>
-
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Exploratory CRM insights on value concentration, channel preference and lifecycle signals.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">EDA</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/pattern-analysis.html">Project Snapshot</a>
-                <a class="btn-teal" href="/reports/Pattern_Analysis_report.htm" target="_blank" rel="noopener">Full Report</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/crm-pattern-analysis" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/pattern-analysis.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="/reports/Pattern_Analysis_report.htm" target="_blank">Full Report</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-pattern-analysis" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Notebook:
-                <a class="link" href="https://github.com/ValescaBravo/crm-pattern-analysis/blob/main/notebooks/01_pattern_analysis.ipynb" target="_blank" rel="noopener">01_pattern_analysis.ipynb</a>
-              </p>
             </article>
-
             <!-- Power BI -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Power BI CRM Dashboard: RFM Threshold Optimiser</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Dashboard to balance audience size vs response performance using lift and threshold selection.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Power BI</span>
-                <span class="chip">DAX</span>
-                <span class="chip">Targeting</span>
-              </div>
-
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Dashboard to balance audience size vs response performance using lift and threshold selection.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Power BI</span><span class="chip">DAX</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/powerbi-crm.html">Project Snapshot</a>
-                <a class="btn-teal" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank" rel="noopener">PDF Walkthrough</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank" rel="noopener">Files (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/powerbi-crm.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank">PDF Walkthrough</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank">Files →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                PBIX:
-                <a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/blob/main/CRM_Analytics_Portfolio.pbix" target="_blank" rel="noopener">CRM_Analytics_Portfolio.pbix</a>
-              </p>
             </article>
-
             <!-- Bellabeat -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Bellabeat — Product Analytics Case Study (R)</h3>
-
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Wearable activity EDA in R, translated into product engagement hypotheses and measurement-ready recommendations.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">R</span>
-                <span class="chip">EDA</span>
-                <span class="chip">Product Analytics</span>
-                <span class="chip">Storytelling</span>
-              </div>
-
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Wearable activity EDA in R, translated into product engagement hypotheses and recommendations.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">R</span><span class="chip">EDA</span><span class="chip">Product Analytics</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/bellabeat.html">Project Snapshot</a>
-                <a class="btn-teal" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Full Report</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/Bellabeat" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/bellabeat.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="https://valescabravo.github.io/Bellabeat/" target="_blank">Full Report</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/Bellabeat" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Evidence: published HTML report + datasets folder (public).
-              </p>
             </article>
-
             <!-- Travel Agency -->
             <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Travel Agency Booking System (PostgreSQL) — Business Analysis</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-                Requirements-led data model for a simplified travel booking flow. Includes business rules, ERD artefacts,
-                PostgreSQL schema, and validation queries with exported outputs.
-              </p>
-
-              <div class="flex flex-wrap gap-2 mt-4">
-                <span class="chip">Business Analysis</span>
-                <span class="chip">PostgreSQL</span>
-                <span class="chip">Data Modelling</span>
-              </div>
-
+              <h3 class="text-lg font-extrabold">Travel Agency Booking System (PostgreSQL)</h3>
+              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Requirements-led data model for a simplified travel booking flow. Includes ERD, schema, validation queries.</p>
+              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">PostgreSQL</span><span class="chip">Data Modelling</span></div>
               <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary" href="/projects/projects_travel_agency.html">Project Snapshot</a>
-                <a class="btn-teal" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank" rel="noopener">Full Case Study (HTML)</a>
-                <a class="link self-center" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank" rel="noopener">Code (GitHub) →</a>
+                <a class="btn-primary text-sm" href="/projects/projects_travel_agency.html">Snapshot</a>
+                <a class="btn-teal text-sm" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank">Full Case Study</a>
+                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank">Code →</a>
               </div>
-
-              <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Evidence: schema.sql · validation_queries.sql · reporting_queries.sql · CSV outputs
-              </p>
             </article>
-
           </div>
         </div>
 
-        <!-- SIDEBAR (sticky) -->
+        <!-- SIDEBAR -->
         <aside class="col-span-12 lg:col-span-4">
           <div class="card p-6 lg:sticky lg:top-24">
             <p class="kicker" style="color: rgba(29,8,94,0.70);">Quick profile</p>
             <h3 class="text-lg font-extrabold mt-2" style="color: var(--navy);">CRM Analytics · Segmentation · Power BI</h3>
-
-            <p class="mt-3 text-sm" style="color: var(--gray-dark);">
-              Decision-ready analytics with clear recommendations for marketing and CRM stakeholders.
-            </p>
-
-            <div class="mt-5">
-              <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-                Core stack
-              </p>
-              <div class="flex flex-wrap gap-2 mt-2">
-                <span class="chip">Python</span>
-                <span class="chip">SQL</span>
-                <span class="chip">Power BI (DAX)</span>
-                <span class="chip">CRM</span>
-              </div>
-            </div>
-
-            <div class="mt-5">
-              <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-                Jump to
-              </p>
-              <div class="mt-3 grid gap-2">
-                <a class="link" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">→ MMM (Meridian) snapshot</a>
-                <a class="link" href="/projects/projects_travel_agency.html">→ Travel Agency BA snapshot</a>
-                <a class="link" href="/projects/bellabeat.html">→ Bellabeat snapshot</a>
-                <a class="link" href="/projects/customer-segmentation.html">→ Segmentation snapshot</a>
-                <a class="link" href="/projects/predictive-modelling.html">→ Predictive modelling snapshot</a>
-                <a class="link" href="/projects/pattern-analysis.html">→ Pattern analysis snapshot</a>
-                <a class="link" href="/projects/powerbi-crm.html">→ Power BI snapshot</a>
-              </div>
-            </div>
-
-            <div class="mt-5">
-              <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-                Interactive Lab
-              </p>
-              <div class="mt-2">
-                <a class="link" href="https://valescabravo.github.io/lab/" target="_blank" rel="noopener">Data &amp; Marketing Intelligence Lab →</a>
-              </div>
-            </div>
-
-            <div class="mt-6 flex flex-wrap gap-3">
-              <a class="btn-primary" href="#contact">Contact</a>
-              <a class="btn-teal" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
+            <p class="mt-3 text-sm" style="color: var(--gray-dark);">Decision-ready analytics with clear recommendations for marketing and CRM stakeholders.</p>
+            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Core stack</p><div class="flex flex-wrap gap-2 mt-2"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI</span><span class="chip">CRM</span></div></div>
+            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Jump to</p><div class="mt-3 grid gap-2"><a class="link" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">→ MMM (Meridian)</a><a class="link" href="/projects/projects_travel_agency.html">→ Travel Agency BA</a><a class="link" href="/projects/bellabeat.html">→ Bellabeat</a><a class="link" href="/projects/customer-segmentation.html">→ Segmentation</a><a class="link" href="/projects/predictive-modelling.html">→ Predictive modelling</a></div></div>
+            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Interactive Lab</p><div class="mt-2"><a class="link" href="https://valescabravo.github.io/lab/" target="_blank">Data &amp; Marketing Intelligence Lab →</a></div></div>
+            <div class="mt-6 flex flex-wrap gap-3"><a class="btn-primary" href="#contact">Contact</a><a class="btn-teal" href="https://linkedin.com/in/valesca-bravo" target="_blank">LinkedIn</a></div>
           </div>
         </aside>
-
       </div>
     </section>
 
-    <!-- ── LAB FEATURE ────────────────────────────────────────────────────── -->
+    <!-- ── LAB FEATURE (mejorado y destacado) ────────────────────────────────── -->
     <section id="lab" class="pt-12">
       <div class="mt-10 rule"></div>
-
-      <div class="card lab-card mt-10 p-6 md:p-8">
+      <div class="lab-card mt-10 p-6 md:p-8 fade-up">
         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-
-          <!-- Left: copy -->
           <div class="flex-1">
             <div class="flex items-center gap-3">
-              <p class="kicker" style="color: rgba(29,8,94,0.65);">INTERACTIVE LAB</p>
+              <p class="kicker" style="color: rgba(19,214,193,0.95);">INTERACTIVE LAB</p>
+              <span class="chip chip-teal">⭐ Featured</span>
               <span class="chip chip-teal">2026</span>
             </div>
-
-            <h2 class="text-2xl md:text-3xl font-extrabold mt-2" style="color: var(--navy);">
-              Data &amp; Marketing Intelligence Lab
-            </h2>
-
-            <p class="mt-3 text-sm md:text-base" style="color: var(--gray-dark); max-width: 60ch;">
-              12 interactive tools documenting how I approach the analytics and marketing stack.
+            <h2 class="text-2xl md:text-3xl font-extrabold mt-2 text-white">Data &amp; Marketing Intelligence Lab</h2>
+            <p class="mt-3 text-sm md:text-base text-gray-200 max-w-2xl">
+              14 interactive tools documenting how I approach the analytics and marketing stack.
               Each one covers a real methodology: from SQL query design to privacy-safe measurement,
               from Agile frameworks to sustainability reporting.
             </p>
-
             <div class="flex flex-wrap gap-2 mt-5">
-              <span class="chip">Data Analytics</span>
-              <span class="chip">Marketing Measurement</span>
-              <span class="chip">Privacy &amp; Ethics</span>
-              <span class="chip">Sustainability</span>
-              <span class="chip">Cloud Computing</span>
+              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Data Analytics</span>
+              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Marketing Measurement</span>
+              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Privacy &amp; Ethics</span>
+              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Sustainability</span>
+              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Cloud Computing</span>
             </div>
-
             <div class="mt-6">
-              <a class="btn-teal inline-block"
-                 href="https://valescabravo.github.io/lab/"
-                 target="_blank"
-                 rel="noopener">
+              <a class="btn-teal inline-block" href="https://valescabravo.github.io/lab/" target="_blank" rel="noopener">
                 Explore the Lab →
               </a>
             </div>
           </div>
-
-          <!-- Right: stat -->
           <div class="shrink-0 flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-1 md:text-right">
-            <p class="stat-num">14</p>
-            <div>
-              <p class="text-sm font-semibold" style="color: var(--gray-dark);">interactive tools</p>
-              <p class="text-xs mt-0.5" style="color: var(--gray-med);">5 active categories</p>
-            </div>
+            <p class="stat-num text-5xl md:text-6xl text-teal-300">14</p>
+            <div><p class="text-sm font-semibold text-gray-200">interactive tools</p><p class="text-xs text-teal-300/70">5 active categories</p></div>
           </div>
-
         </div>
       </div>
     </section>
@@ -584,7 +463,6 @@
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Profile</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">About</h2>
-
       <div class="card p-6 mt-5">
         <p class="text-sm md:text-base" style="color: var(--gray-dark); max-width: 80ch;">
           Data Analyst with a Master's in Big Data &amp; Business Intelligence and a background in digital marketing.
@@ -599,74 +477,81 @@
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Proof</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Recommendation</h2>
-
       <div class="card p-6 mt-5">
         <p class="text-lg font-extrabold">Open Doors Initiative — Digital Marketing with AI Programme</p>
-        <p class="mt-2 text-sm" style="color: var(--gray-dark);">
-          Reference letter (Accenture collaboration).
-        </p>
-
-        <a class="btn-teal inline-block mt-5"
-           href="/recommendations/ODI_Reference.pdf" target="_blank" rel="noopener">
-          View reference (PDF)
-        </a>
+        <p class="mt-2 text-sm" style="color: var(--gray-dark);">Reference letter (Accenture collaboration).</p>
+        <a class="btn-teal inline-block mt-5" href="/recommendations/ODI_Reference.pdf" target="_blank" rel="noopener">View reference (PDF)</a>
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact con loading state mejorado -->
     <section id="contact" class="pt-12">
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Let's talk</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Contact</h2>
-
       <div class="card p-6 mt-5">
-        <p class="text-sm" style="color: var(--gray-dark); max-width: 85ch;">
-          Best way to reach me: send a message here or via LinkedIn.
-        </p>
-
-        <form action="https://formspree.io/f/mreebrej" method="POST" class="mt-5 grid gap-3">
-
-          <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
-            <label>Do not fill this in: <input name="_gotcha" /></label>
-          </div>
-
-          <input name="name" required placeholder="Name"
-                 class="w-full rounded-xl border px-4 py-3"
-                 style="border-color: rgba(29,8,94,0.18);" />
-
-          <input type="email" name="email" required placeholder="Email"
-                 class="w-full rounded-xl border px-4 py-3"
-                 style="border-color: rgba(29,8,94,0.18);" />
-
-          <textarea name="message" required rows="6" placeholder="Message"
-                    class="w-full rounded-xl border px-4 py-3"
-                    style="border-color: rgba(29,8,94,0.18);"></textarea>
-
+        <p class="text-sm" style="color: var(--gray-dark);">Best way to reach me: send a message here or via LinkedIn.</p>
+        <form action="https://formspree.io/f/mreebrej" method="POST" class="mt-5 grid gap-3" id="contact-form">
+          <div style="position:absolute; left:-9999px;"><label>Do not fill: <input name="_gotcha" /></label></div>
+          <input name="name" required placeholder="Name" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);" />
+          <input type="email" name="email" required placeholder="Email" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);" />
+          <textarea name="message" required rows="6" placeholder="Message" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);"></textarea>
           <div class="flex flex-wrap gap-3 items-center">
-            <button type="submit" class="btn-teal">Send message</button>
-            <a class="btn-primary" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">Message on LinkedIn</a>
+            <button type="submit" class="btn-teal" id="submit-btn">Send message</button>
+            <a class="btn-primary" href="https://linkedin.com/in/valesca-bravo" target="_blank">Message on LinkedIn</a>
           </div>
-
-          <p class="text-xs mt-2" style="color: var(--gray-med);">
-            This form is powered by Formspree (static site). You'll receive messages in your inbox without exposing your email address.
-          </p>
+          <p class="text-xs mt-2" style="color: var(--gray-med);">Powered by Formspree — your message goes directly to my inbox.</p>
         </form>
-
-        <div class="mt-5">
-          <p class="text-sm" style="color: var(--gray-dark);">
-            GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank" rel="noopener">github.com/ValescaBravo</a>
-          </p>
-          <p class="text-sm mt-2" style="color: var(--gray-dark);">
-            LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">linkedin.com/in/valesca-bravo</a>
-          </p>
-        </div>
+        <div class="mt-5"><p class="text-sm" style="color: var(--gray-dark);">GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank">github.com/ValescaBravo</a></p><p class="text-sm mt-2" style="color: var(--gray-dark);">LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank">linkedin.com/in/valesca-bravo</a></p></div>
       </div>
     </section>
 
-    <footer class="pt-14 text-sm opacity-80">
-      © 2026 Valesca Bravo · VBDA palette: NAVY #1d085e · TEAL #13d6c1 · TEAL_DARK #0a9a88
+    <!-- Footer mejorado (3 columnas) -->
+    <footer class="pt-14 pb-8 mt-8 border-t border-teal-500/20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+        <div>
+          <p class="font-extrabold text-teal-300 mb-2">Valesca Bravo</p>
+          <p class="opacity-70 text-xs">Data Analyst — CRM & Marketing Intelligence</p>
+        </div>
+        <div>
+          <p class="font-semibold text-teal-300 mb-2">Quick links</p>
+          <ul class="space-y-1 text-xs opacity-80">
+            <li><a href="#projects" class="hover:text-teal-300">Projects</a></li>
+            <li><a href="#lab" class="hover:text-teal-300">Interactive Lab</a></li>
+            <li><a href="#about" class="hover:text-teal-300">About</a></li>
+            <li><a href="#contact" class="hover:text-teal-300">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-teal-300 mb-2">Connect</p>
+          <ul class="space-y-1 text-xs opacity-80">
+            <li><a href="https://github.com/ValescaBravo" target="_blank" class="hover:text-teal-300">GitHub</a></li>
+            <li><a href="https://linkedin.com/in/valesca-bravo" target="_blank" class="hover:text-teal-300">LinkedIn</a></li>
+            <li><a href="https://valescabravo.github.io/lab/" target="_blank" class="hover:text-teal-300">Interactive Lab</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center text-xs opacity-60 mt-8 pt-4 border-t border-teal-500/10">
+        © 2026 Valesca Bravo · Naval & Teal palette · Data with purpose
+      </div>
     </footer>
-
   </main>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        const btn = document.getElementById('submit-btn');
+        if (btn) {
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
+          setTimeout(() => {
+            btn.textContent = 'Send message';
+            btn.disabled = false;
+          }, 3000);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
