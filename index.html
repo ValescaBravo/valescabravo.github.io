@@ -10,20 +10,15 @@
 
   <style>
     :root{
-      /* VBDA — Brand */
       --navy:#1d085e;
       --teal:#13d6c1;
       --teal-dark:#0a9a88;
-
-      /* Neutrals */
       --white:#ffffff;
       --gray-light:#f8f9fa;
       --gray-med:#6c757d;
       --gray-dark:#343a40;
-
       --ink:#0b1220;
       --border: rgba(19,214,193,0.35);
-
       --radius: 18px;
       --shadow-float: 0 26px 70px rgba(0,0,0,0.30);
       --shadow-card: 0 14px 30px rgba(0,0,0,0.14);
@@ -36,7 +31,6 @@
       color: white;
     }
 
-    /* Magazine texture on navy */
     .mag-texture{
       background-image:
         radial-gradient(900px 420px at 18% 10%, rgba(19,214,193,0.18), transparent 60%),
@@ -46,7 +40,6 @@
       background-size: auto, auto, 56px 56px, 56px 56px;
     }
 
-    /* Floating panel (white) */
     .panel{
       background: rgba(255,255,255,0.98);
       color: var(--ink);
@@ -55,7 +48,6 @@
       border: 1px solid rgba(255,255,255,0.18);
     }
 
-    /* Card (white) with teal accents */
     .card{
       background: rgba(255,255,255,0.98);
       color: var(--ink);
@@ -84,6 +76,12 @@
       letter-spacing: 0.01em;
     }
 
+    .chip-teal{
+      background: var(--teal);
+      color: #061013;
+      border-color: transparent;
+    }
+
     .kicker{
       font-size: 12px;
       font-weight: 900;
@@ -103,7 +101,6 @@
       text-shadow: 0 10px 30px rgba(19,214,193,0.18);
     }
 
-    /* Buttons */
     .btn-primary{
       background: var(--navy);
       color: white;
@@ -135,14 +132,12 @@
     }
     .btn-ghost:hover{ background: rgba(255,255,255,0.10); }
 
-    /* Links on white */
     .link{
       color: var(--navy);
       font-weight: 800;
     }
     .link:hover{ text-decoration: underline; }
 
-    /* Navbar (floating dark) */
     .navglass{
       background: rgba(10,8,30,0.40);
       border: 1px solid rgba(255,255,255,0.14);
@@ -150,17 +145,30 @@
       border-radius: 18px;
     }
 
-    /* Section separator like magazine */
     .rule{
       height: 1px;
       background: rgba(19,214,193,0.30);
       width: 100%;
     }
+
+    /* Lab card accent */
+    .lab-card{
+      border-left: 4px solid var(--teal);
+    }
+
+    /* Large stat */
+    .stat-num{
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--navy);
+    }
   </style>
 </head>
 
 <body>
-  <!-- Top nav on navy -->
+  <!-- Top nav -->
   <header class="sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="navglass px-4 py-3 flex items-center justify-between">
@@ -171,6 +179,7 @@
 
         <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
           <a href="#projects" class="hover:opacity-100">Projects</a>
+          <a href="#lab" class="hover:opacity-100">Lab</a>
           <a href="#about" class="hover:opacity-100">About</a>
           <a href="#recommendation" class="hover:opacity-100">Recommendation</a>
           <a href="#contact" class="hover:opacity-100">Contact</a>
@@ -187,7 +196,7 @@
     </div>
   </header>
 
-  <!-- HERO: Navy background + floating white panel -->
+  <!-- HERO -->
   <section class="mag-texture">
     <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
 
@@ -351,13 +360,13 @@
               </div>
 
               <p class="mt-3 text-xs" style="color: var(--gray-med);">
-                Outputs: model diagnostics (R-hat), fit, ROI & response curves, and an optimisation scenario.
+                Outputs: model diagnostics (R-hat), fit, ROI &amp; response curves, and an optimisation scenario.
               </p>
             </article>
 
             <!-- Pattern -->
             <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour & Lifecycle)</h3>
+              <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour &amp; Lifecycle)</h3>
               <p class="mt-3 text-sm" style="color: var(--gray-dark);">
                 Exploratory CRM insights on value concentration, channel preference and lifecycle signals.
               </p>
@@ -404,31 +413,33 @@
                 <a class="link" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser/blob/main/CRM_Analytics_Portfolio.pbix" target="_blank" rel="noopener">CRM_Analytics_Portfolio.pbix</a>
               </p>
             </article>
+
             <!-- Bellabeat -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Bellabeat — Product Analytics Case Study (R)</h3>
-            
+
               <p class="mt-3 text-sm" style="color: var(--gray-dark);">
                 Wearable activity EDA in R, translated into product engagement hypotheses and measurement-ready recommendations.
               </p>
-            
+
               <div class="flex flex-wrap gap-2 mt-4">
                 <span class="chip">R</span>
                 <span class="chip">EDA</span>
                 <span class="chip">Product Analytics</span>
                 <span class="chip">Storytelling</span>
               </div>
-            
+
               <div class="flex flex-wrap gap-3 mt-6">
                 <a class="btn-primary" href="/projects/bellabeat.html">Project Snapshot</a>
                 <a class="btn-teal" href="https://valescabravo.github.io/Bellabeat/" target="_blank" rel="noopener">Full Report</a>
                 <a class="link self-center" href="https://github.com/ValescaBravo/Bellabeat" target="_blank" rel="noopener">Code (GitHub) →</a>
               </div>
-            
+
               <p class="mt-3 text-xs" style="color: var(--gray-med);">
                 Evidence: published HTML report + datasets folder (public).
               </p>
             </article>
+
             <!-- Travel Agency -->
             <article class="card p-6">
               <h3 class="text-lg font-extrabold">Travel Agency Booking System (PostgreSQL) — Business Analysis</h3>
@@ -491,16 +502,15 @@
                 <a class="link" href="/projects/predictive-modelling.html">→ Predictive modelling snapshot</a>
                 <a class="link" href="/projects/pattern-analysis.html">→ Pattern analysis snapshot</a>
                 <a class="link" href="/projects/powerbi-crm.html">→ Power BI snapshot</a>
-
               </div>
             </div>
 
             <div class="mt-5">
               <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">
-                Supporting library
+                Interactive Lab
               </p>
               <div class="mt-2">
-                <a class="link" href="https://github.com/ValescaBravo/vbda-insightlab" target="_blank" rel="noopener">VBDA InsightLab →</a>
+                <a class="link" href="https://valescabravo.github.io/lab/" target="_blank" rel="noopener">Data &amp; Marketing Intelligence Lab →</a>
               </div>
             </div>
 
@@ -508,13 +518,64 @@
               <a class="btn-primary" href="#contact">Contact</a>
               <a class="btn-teal" href="https://linkedin.com/in/valesca-bravo" target="_blank" rel="noopener">LinkedIn</a>
             </div>
-
-            <p class="mt-5 text-xs" style="color: var(--gray-med);">
-              Mobile-friendly: sidebar stacks under projects and becomes sticky only on desktop.
-            </p>
           </div>
         </aside>
 
+      </div>
+    </section>
+
+    <!-- ── LAB FEATURE ────────────────────────────────────────────────────── -->
+    <section id="lab" class="pt-12">
+      <div class="mt-10 rule"></div>
+
+      <div class="card lab-card mt-10 p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+
+          <!-- Left: copy -->
+          <div class="flex-1">
+            <div class="flex items-center gap-3">
+              <p class="kicker" style="color: rgba(29,8,94,0.65);">INTERACTIVE LAB</p>
+              <span class="chip chip-teal">2026</span>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-extrabold mt-2" style="color: var(--navy);">
+              Data &amp; Marketing Intelligence Lab
+            </h2>
+
+            <p class="mt-3 text-sm md:text-base" style="color: var(--gray-dark); max-width: 60ch;">
+              12 interactive tools documenting how I approach the analytics and marketing stack.
+              Each one covers a real methodology: from SQL query design to privacy-safe measurement,
+              from Agile frameworks to sustainability reporting.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="chip">Data Analytics</span>
+              <span class="chip">Marketing Measurement</span>
+              <span class="chip">Privacy &amp; Ethics</span>
+              <span class="chip">Sustainability</span>
+              <span class="chip">Agile</span>
+            </div>
+
+            <div class="mt-6">
+              <a class="btn-teal inline-block"
+                 href="https://valescabravo.github.io/lab/"
+                 target="_blank"
+                 rel="noopener">
+                Explore the Lab →
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: stat -->
+          <div class="shrink-0 flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-1 md:text-right">
+            <p class="stat-num">12</p>
+            <div>
+              <p class="text-sm font-semibold" style="color: var(--gray-dark);">interactive tools</p>
+              <p class="text-xs mt-0.5" style="color: var(--gray-med);">5 active categories</p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -526,7 +587,7 @@
 
       <div class="card p-6 mt-5">
         <p class="text-sm md:text-base" style="color: var(--gray-dark); max-width: 80ch;">
-          Data Analyst with a Master’s in Big Data & Business Intelligence and a background in digital marketing.
+          Data Analyst with a Master's in Big Data &amp; Business Intelligence and a background in digital marketing.
           I build decision-ready reporting in Power BI (DAX), supported by SQL and Python, with rigorous data cleaning, stakeholder reporting and practical data governance.
           ICDL Data Protection certified.
         </p>
@@ -555,7 +616,7 @@
     <!-- Contact -->
     <section id="contact" class="pt-12">
       <div class="mt-10 rule"></div>
-      <p class="kicker mt-10">Let’s talk</p>
+      <p class="kicker mt-10">Let's talk</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Contact</h2>
 
       <div class="card p-6 mt-5">
@@ -587,7 +648,7 @@
           </div>
 
           <p class="text-xs mt-2" style="color: var(--gray-med);">
-            This form is powered by Formspree (static site). You’ll receive messages in your inbox without exposing your email address.
+            This form is powered by Formspree (static site). You'll receive messages in your inbox without exposing your email address.
           </p>
         </form>
 
