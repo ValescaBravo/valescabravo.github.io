@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Valesca Bravo | Data Analyst — Portfolio & Interactive Lab</title>
-  <meta name="description" content="Portfolio of Valesca Bravo — Data Analyst specialised in CRM analytics, Power BI, Python, SQL, and Marketing Measurement. Explore projects and the Interactive Lab." />
-  <meta property="og:title" content="Valesca Bravo | Data Analyst Portfolio" />
-  <meta property="og:description" content="Decision-ready analytics, CRM segmentation, Power BI dashboards, and an Interactive Lab with 14+ tools." />
+  <title>Valesca Bravo | Data Analyst — Business Intelligence & Analytics Portfolio</title>
+  <meta name="description" content="Portfolio of Valesca Bravo — Data Analyst with background in marketing. 8+ years experience in BI reporting, CRM analytics, Python, SQL, Power BI, and GDPR-compliant data operations. Stamp 4 — no sponsorship required." />
+  <meta property="og:title" content="Valesca Bravo | Data Analyst — Business Intelligence & Analytics" />
+  <meta property="og:description" content="Data Analyst specialising in BI reporting, CRM analytics, and data-driven decision making. Power BI, SQL, Python, GA4." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://valescabravo.github.io/" />
   
@@ -39,7 +39,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Smooth scroll offset for sticky header */
     html {
       scroll-padding-top: 90px;
     }
@@ -52,21 +51,12 @@
       background-size: auto, auto, 56px 56px, 56px 56px;
     }
 
-    /* Hero panel improved: glassmorphism con gradiente suave */
     .hero-panel {
       background: rgba(13, 11, 30, 0.75);
       backdrop-filter: blur(12px);
       border-radius: 32px;
       border: 1px solid rgba(19,214,193,0.35);
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-    }
-
-    .panel {
-      background: rgba(255,255,255,0.98);
-      color: var(--ink);
-      border-radius: 28px;
-      box-shadow: var(--shadow-float);
-      border: 1px solid rgba(255,255,255,0.18);
     }
 
     .card {
@@ -101,6 +91,12 @@
       background: var(--teal);
       color: #061013;
       border-color: transparent;
+    }
+
+    .chip-white {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
     }
 
     .kicker {
@@ -198,7 +194,26 @@
       font-family: 'DM Mono', monospace;
     }
 
-    /* Fade-in animation on scroll */
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(19,214,193,0.08);
+      border: 1px solid rgba(19,214,193,0.3);
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      color: var(--teal);
+      transition: all 0.2s;
+    }
+    .cert-badge:hover {
+      background: rgba(19,214,193,0.18);
+      border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -210,7 +225,6 @@
 </head>
 <body>
 
-  <!-- Top nav mejorado con smooth scroll -->
   <header class="sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="navglass px-4 py-3 flex items-center justify-between">
@@ -218,7 +232,6 @@
           <p class="text-xs font-semibold opacity-80 font-mono">Portfolio</p>
           <p class="text-base font-extrabold tracking-tight">Valesca Bravo</p>
         </div>
-
         <nav class="hidden md:flex items-center gap-7 text-sm font-semibold opacity-90">
           <a href="#projects" class="hover:text-teal-300 transition-colors">Projects</a>
           <a href="#lab" class="hover:text-teal-300 transition-colors">Lab</a>
@@ -226,193 +239,98 @@
           <a href="#recommendation" class="hover:text-teal-300 transition-colors">Recommendation</a>
           <a href="#contact" class="hover:text-teal-300 transition-colors">Contact</a>
         </nav>
-
-        <a class="btn-ghost text-sm"
-           href="assets/Valesca_Bravo_CV_Data_Analyst_ATS.pdf"
-           download
-           target="_blank"
-           rel="noopener">
-          Download CV
-        </a>
+        <a class="btn-ghost text-sm" href="assets/Valesca_Bravo_CV_Data_Analyst_ATS.pdf" download target="_blank" rel="noopener">Download CV</a>
       </div>
     </div>
   </header>
 
-  <!-- HERO mejorado: panel glassmorphism + stats integradas -->
+  <!-- HERO - versión corregida: Data Analyst with background in marketing -->
   <section class="mag-texture">
     <div class="max-w-6xl mx-auto px-6 pt-10 pb-10">
       <div class="hero-panel p-8 md:p-12 fade-up">
-        <p class="kicker">INSIGHT &amp; STRATEGY</p>
+        <p class="kicker">DATA ANALYST</p>
         <h1 class="headline text-4xl md:text-6xl mt-3">
           Turning complex data into
           <span class="headline-accent">clear, trusted decisions</span>
         </h1>
-        <p class="mt-5 text-base md:text-lg text-gray-200" style="max-width: 72ch;">
-          Power BI + DAX dashboards built on SQL and Python. Strong Data Cleaning, Stakeholder Reporting and Data
-          Governance—ICDL Data Protection certified.
+        <div class="flex flex-wrap items-center gap-3 mt-4">
+          <span class="bg-teal-500/20 text-teal-300 border border-teal-500/40 rounded-full px-3 py-1 text-xs font-mono">📍 Dublin, Ireland</span>
+          <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full px-3 py-1 text-xs font-mono">✅ Stamp 4 — no sponsorship required</span>
+          <span class="bg-blue-500/20 text-blue-300 border border-blue-500/40 rounded-full px-3 py-1 text-xs font-mono">⚡ Immediately available</span>
+        </div>
+        <p class="mt-5 text-base md:text-lg text-gray-200" style="max-width: 80ch;">
+          <strong class="text-teal-300">Data Analyst with a background in marketing.</strong> 
+          I build decision-ready reporting in Power BI (DAX), supported by SQL and Python, with rigorous data cleaning, stakeholder reporting and practical data governance. 
+          <strong class="text-teal-300">8+ years of experience</strong> across analytics, BI, and data operations — now focused on delivering insights that drive business value.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a class="btn-primary" href="#projects">View projects</a>
-          <a class="btn-teal"
-             href="assets/Valesca_Bravo_CV_Data_Analyst_ATS.pdf"
-             download
-             target="_blank"
-             rel="noopener">
-            Download CV
-          </a>
+          <a class="btn-teal" href="assets/Valesca_Bravo_CV_Data_Analyst_ATS.pdf" download target="_blank">Download CV</a>
         </div>
         <div class="mt-7 flex flex-wrap gap-2">
           <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Power BI (DAX)</span>
-          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Stakeholder Reporting</span>
-          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Data Cleaning (SQL/Python)</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">SQL / Python / R</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Google Analytics 4</span>
           <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Data Governance</span>
+          <span class="bg-white/10 text-white border-white/20 rounded-full px-3 py-1.5 text-xs font-mono">Stakeholder Reporting</span>
         </div>
       </div>
 
-      <!-- Stats row: evidencia cuantificable (nueva sección) -->
+      <!-- Stats -->
       <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
           <div class="stat-num text-3xl md:text-4xl">8+</div>
-          <p class="text-xs text-teal-300 font-mono mt-1">Data Projects</p>
+          <p class="text-xs text-teal-300 font-mono mt-1">Years experience</p>
         </div>
         <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
           <div class="stat-num text-3xl md:text-4xl">14</div>
           <p class="text-xs text-teal-300 font-mono mt-1">Interactive Lab tools</p>
         </div>
         <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
-          <div class="stat-num text-3xl md:text-4xl">5+</div>
-          <p class="text-xs text-teal-300 font-mono mt-1">Years experience</p>
+          <div class="stat-num text-3xl md:text-4xl">NFQ 9</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Master's in Big Data</p>
         </div>
         <div class="text-center p-4 bg-white/5 backdrop-blur rounded-2xl border border-teal-500/20">
-          <div class="stat-num text-3xl md:text-4xl">100%</div>
-          <p class="text-xs text-teal-300 font-mono mt-1">Stakeholder focus</p>
+          <div class="stat-num text-3xl md:text-4xl">8+</div>
+          <p class="text-xs text-teal-300 font-mono mt-1">Certifications</p>
         </div>
       </div>
 
       <!-- Focus / Strength / Delivery -->
       <div class="mt-8 grid md:grid-cols-3 gap-4">
-        <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Focus</p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Decision-ready reporting for leaders and teams</p>
-        </div>
-        <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Strength</p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Stakeholder reporting &amp; data storytelling</p>
-        </div>
-        <div class="card p-5">
-          <p class="text-xs font-extrabold" style="color: var(--teal-dark); letter-spacing:0.12em; text-transform:uppercase;">Delivery</p>
-          <p class="mt-2 text-sm" style="color: var(--gray-dark);">Power BI dashboards + audit-ready analysis notes</p>
-        </div>
+        <div class="card p-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Focus</p><p class="mt-2 text-sm" style="color: var(--gray-dark);">Decision-ready reporting for leaders and teams</p></div>
+        <div class="card p-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Strength</p><p class="mt-2 text-sm" style="color: var(--gray-dark);">Stakeholder reporting &amp; data storytelling</p></div>
+        <div class="card p-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Delivery</p><p class="mt-2 text-sm" style="color: var(--gray-dark);">Power BI dashboards + audit-ready analysis notes</p></div>
       </div>
     </div>
   </section>
 
-  <!-- CONTENT -->
   <main class="max-w-6xl mx-auto px-6 pb-16">
 
     <!-- Projects -->
     <section id="projects" class="pt-10">
-      <div class="flex items-end justify-between gap-6">
-        <div>
-          <p class="kicker">Selected work</p>
-          <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Projects</h2>
-          <p class="mt-2 text-sm opacity-80">Project snapshots (fast to scan) + full reports (deep dive).</p>
-        </div>
-      </div>
+      <div class="flex items-end justify-between gap-6"><div><p class="kicker">Selected work</p><h2 class="text-3xl md:text-4xl font-extrabold mt-2">Projects</h2><p class="mt-2 text-sm opacity-80">Project snapshots + full reports (deep dive).</p></div></div>
       <div class="mt-6 rule"></div>
-
       <div class="grid grid-cols-12 gap-6 mt-6">
-        <!-- MAIN cards -->
         <div class="col-span-12 lg:col-span-8">
           <div class="grid md:grid-cols-2 gap-6">
-            <!-- Segmentation -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Customer Segmentation (RFM + PCA + KMeans)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Actionable segments combining value, recency, frequency and channel behaviour for CRM prioritisation.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Clustering</span><span class="chip">RFM</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/customer-segmentation.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="/reports/Customer_Segmentation.htm" target="_blank">Full Report</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank">Code →</a>
-              </div>
-            </article>
-            <!-- Predictive -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Predictive Modelling: Campaign Response</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Response scoring to improve targeting efficiency and maximise ROI under budget constraints.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Random Forest</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/predictive-modelling.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="/reports/predictive_model_report.htm" target="_blank">Full Report</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-predictive-response-modelling" target="_blank">Code →</a>
-              </div>
-            </article>
-            <!-- MMM Meridian -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">MMM: Budget Optimisation (Google Meridian)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Bayesian MMM on weekly retail data to estimate incremental impact, response curves and budget reallocation.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Bayesian MMM</span><span class="chip">Meridian</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="/reports/final_report_bicycles.html" target="_blank">Model Report</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/mmm-meridian-bikes" target="_blank">Code →</a>
-              </div>
-            </article>
-            <!-- Pattern Analysis -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Customer Pattern Analysis (Behaviour &amp; Lifecycle)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Exploratory CRM insights on value concentration, channel preference and lifecycle signals.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">EDA</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/pattern-analysis.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="/reports/Pattern_Analysis_report.htm" target="_blank">Full Report</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-pattern-analysis" target="_blank">Code →</a>
-              </div>
-            </article>
-            <!-- Power BI -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Power BI CRM Dashboard: RFM Threshold Optimiser</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Dashboard to balance audience size vs response performance using lift and threshold selection.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">Power BI</span><span class="chip">DAX</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/powerbi-crm.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank">PDF Walkthrough</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank">Files →</a>
-              </div>
-            </article>
-            <!-- Bellabeat -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Bellabeat — Product Analytics Case Study (R)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Wearable activity EDA in R, translated into product engagement hypotheses and recommendations.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">R</span><span class="chip">EDA</span><span class="chip">Product Analytics</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/bellabeat.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="https://valescabravo.github.io/Bellabeat/" target="_blank">Full Report</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/Bellabeat" target="_blank">Code →</a>
-              </div>
-            </article>
-            <!-- Travel Agency -->
-            <article class="card p-6">
-              <h3 class="text-lg font-extrabold">Travel Agency Booking System (PostgreSQL)</h3>
-              <p class="mt-3 text-sm" style="color: var(--gray-dark);">Requirements-led data model for a simplified travel booking flow. Includes ERD, schema, validation queries.</p>
-              <div class="flex flex-wrap gap-2 mt-4"><span class="chip">PostgreSQL</span><span class="chip">Data Modelling</span></div>
-              <div class="flex flex-wrap gap-3 mt-6">
-                <a class="btn-primary text-sm" href="/projects/projects_travel_agency.html">Snapshot</a>
-                <a class="btn-teal text-sm" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank">Full Case Study</a>
-                <a class="link self-center text-sm" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank">Code →</a>
-              </div>
-            </article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">Customer Segmentation (RFM + PCA + KMeans)</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Actionable segments combining value, recency, frequency and channel behaviour for CRM prioritisation.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Clustering</span><span class="chip">RFM</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/projects/customer-segmentation.html">Snapshot</a><a class="btn-teal text-sm" href="/reports/Customer_Segmentation.htm" target="_blank">Full Report</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-segmentation-rfm-pca-kmeans" target="_blank">Code →</a></div></article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">Predictive Modelling: Campaign Response</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Response scoring to improve targeting efficiency and maximise ROI under budget constraints.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">Python</span><span class="chip">Random Forest</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/projects/predictive-modelling.html">Snapshot</a><a class="btn-teal text-sm" href="/reports/predictive_model_report.htm" target="_blank">Full Report</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-predictive-response-modelling" target="_blank">Code →</a></div></article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">MMM: Budget Optimisation (Google Meridian)</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Bayesian MMM on weekly retail data to estimate incremental impact, response curves and budget reallocation.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">Bayesian MMM</span><span class="chip">Meridian</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">Snapshot</a><a class="btn-teal text-sm" href="/reports/final_report_bicycles.html" target="_blank">Model Report</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/mmm-meridian-bikes" target="_blank">Code →</a></div></article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">Power BI CRM Dashboard: RFM Threshold Optimiser</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Dashboard to balance audience size vs response performance using lift and threshold selection.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">Power BI</span><span class="chip">DAX</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/projects/powerbi-crm.html">Snapshot</a><a class="btn-teal text-sm" href="/reports/CRM_Analytics_Portfolio.pdf" target="_blank">PDF Walkthrough</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/crm-powerbi-rfm-threshold-optimiser" target="_blank">Files →</a></div></article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">Bellabeat — Product Analytics (R)</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Wearable activity EDA translated into product engagement hypotheses and recommendations.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">R</span><span class="chip">EDA</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/projects/bellabeat.html">Snapshot</a><a class="btn-teal text-sm" href="https://valescabravo.github.io/Bellabeat/" target="_blank">Full Report</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/Bellabeat" target="_blank">Code →</a></div></article>
+            <article class="card p-6"><h3 class="text-lg font-extrabold">Travel Agency Booking System (PostgreSQL)</h3><p class="mt-3 text-sm" style="color: var(--gray-dark);">Requirements-led data model for a simplified travel booking flow. Includes ERD, schema, validation queries.</p><div class="flex flex-wrap gap-2 mt-4"><span class="chip">PostgreSQL</span><span class="chip">Data Modelling</span></div><div class="flex flex-wrap gap-3 mt-6"><a class="btn-primary text-sm" href="/projects/projects_travel_agency.html">Snapshot</a><a class="btn-teal text-sm" href="https://valescabravo.github.io/Travel-Agency-Booking-System/" target="_blank">Full Case Study</a><a class="link self-center text-sm" href="https://github.com/ValescaBravo/Travel-Agency-Booking-System" target="_blank">Code →</a></div></article>
           </div>
         </div>
-
-        <!-- SIDEBAR -->
         <aside class="col-span-12 lg:col-span-4">
           <div class="card p-6 lg:sticky lg:top-24">
             <p class="kicker" style="color: rgba(29,8,94,0.70);">Quick profile</p>
-            <h3 class="text-lg font-extrabold mt-2" style="color: var(--navy);">CRM Analytics · Segmentation · Power BI</h3>
-            <p class="mt-3 text-sm" style="color: var(--gray-dark);">Decision-ready analytics with clear recommendations for marketing and CRM stakeholders.</p>
-            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Core stack</p><div class="flex flex-wrap gap-2 mt-2"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI</span><span class="chip">CRM</span></div></div>
-            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Jump to</p><div class="mt-3 grid gap-2"><a class="link" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">→ MMM (Meridian)</a><a class="link" href="/projects/projects_travel_agency.html">→ Travel Agency BA</a><a class="link" href="/projects/bellabeat.html">→ Bellabeat</a><a class="link" href="/projects/customer-segmentation.html">→ Segmentation</a><a class="link" href="/projects/predictive-modelling.html">→ Predictive modelling</a></div></div>
+            <h3 class="text-lg font-extrabold mt-2" style="color: var(--navy);">Data Analyst · BI · CRM Analytics</h3>
+            <p class="mt-3 text-sm" style="color: var(--gray-dark);">8+ years experience. Stamp 4 — no sponsorship required. Immediately available in Dublin.</p>
+            <div class="mt-4"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Core stack</p><div class="flex flex-wrap gap-2 mt-2"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI</span><span class="chip">GA4</span><span class="chip">GTM</span><span class="chip">R</span></div></div>
+            <div class="mt-4"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Languages</p><div class="flex gap-2 mt-1"><span class="chip">🇪🇸 Spanish (native)</span><span class="chip">🇬🇧 English (C1)</span></div></div>
+            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Education</p><ul class="text-xs mt-1 space-y-0.5 text-gray-600"><li>🎓 Master's in Big Data & BI — NFQ Level 9 (8.1/10)</li><li>📊 Higher Diploma in Data Analytics — NFQ Level 8 (7.3/10)</li></ul></div>
+            <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Jump to</p><div class="mt-2 grid gap-1"><a class="link text-sm" href="/mmm-meridian-bikes/projects/mmm-meridian-bikes.html">→ MMM (Meridian)</a><a class="link text-sm" href="/projects/customer-segmentation.html">→ Segmentation</a><a class="link text-sm" href="/projects/predictive-modelling.html">→ Predictive modelling</a></div></div>
             <div class="mt-5"><p class="text-xs font-extrabold" style="color: var(--teal-dark);">Interactive Lab</p><div class="mt-2"><a class="link" href="https://valescabravo.github.io/lab/" target="_blank">Data &amp; Marketing Intelligence Lab →</a></div></div>
             <div class="mt-6 flex flex-wrap gap-3"><a class="btn-primary" href="#contact">Contact</a><a class="btn-teal" href="https://linkedin.com/in/valesca-bravo" target="_blank">LinkedIn</a></div>
           </div>
@@ -420,40 +338,36 @@
       </div>
     </section>
 
-    <!-- ── LAB FEATURE (mejorado y destacado) ────────────────────────────────── -->
+    <!-- Certifications Section -->
+    <section id="certifications" class="pt-12">
+      <div class="mt-10 rule"></div>
+      <p class="kicker mt-10">Credentials</p>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Certifications</h2>
+      <div class="flex flex-wrap gap-3 mt-5">
+        <span class="cert-badge">📊 Google Ads Measurement Certification</span>
+        <span class="cert-badge">📈 Google Analytics 4 Certification</span>
+        <span class="cert-badge">🔒 ICDL Data Protection</span>
+        <span class="cert-badge">📋 Business Analysis: Requirements Gathering</span>
+        <span class="cert-badge">🎯 Introduction to Attribution & Mix Modelling</span>
+        <span class="cert-badge">☁️ Microsoft Azure Fundamentals (AZ-900)</span>
+        <span class="cert-badge">📚 Google Data Analytics Capstone</span>
+        <span class="cert-badge">🏷️ Learning Google Tag Manager</span>
+      </div>
+    </section>
+
+    <!-- LAB FEATURE -->
     <section id="lab" class="pt-12">
       <div class="mt-10 rule"></div>
       <div class="lab-card mt-10 p-6 md:p-8 fade-up">
         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div class="flex-1">
-            <div class="flex items-center gap-3">
-              <p class="kicker" style="color: rgba(19,214,193,0.95);">INTERACTIVE LAB</p>
-              <span class="chip chip-teal">⭐ Featured</span>
-              <span class="chip chip-teal">2026</span>
-            </div>
+            <div class="flex items-center gap-3"><p class="kicker" style="color: rgba(19,214,193,0.95);">INTERACTIVE LAB</p><span class="chip chip-teal">⭐ Featured</span><span class="chip chip-teal">2026</span></div>
             <h2 class="text-2xl md:text-3xl font-extrabold mt-2 text-white">Data &amp; Marketing Intelligence Lab</h2>
-            <p class="mt-3 text-sm md:text-base text-gray-200 max-w-2xl">
-              14 interactive tools documenting how I approach the analytics and marketing stack.
-              Each one covers a real methodology: from SQL query design to privacy-safe measurement,
-              from Agile frameworks to sustainability reporting.
-            </p>
-            <div class="flex flex-wrap gap-2 mt-5">
-              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Data Analytics</span>
-              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Marketing Measurement</span>
-              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Privacy &amp; Ethics</span>
-              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Sustainability</span>
-              <span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Cloud Computing</span>
-            </div>
-            <div class="mt-6">
-              <a class="btn-teal inline-block" href="https://valescabravo.github.io/lab/" target="_blank" rel="noopener">
-                Explore the Lab →
-              </a>
-            </div>
+            <p class="mt-3 text-sm md:text-base text-gray-200 max-w-2xl">14 interactive tools documenting real methodologies: from SQL query design to privacy‑safe measurement, from marketing mix modeling to sustainability reporting.</p>
+            <div class="flex flex-wrap gap-2 mt-5"><span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Data Analytics</span><span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Marketing Measurement</span><span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Privacy &amp; Ethics</span><span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Sustainability</span><span class="bg-teal-500/20 text-teal-200 rounded-full px-3 py-1 text-xs font-mono">Cloud Computing</span></div>
+            <div class="mt-6"><a class="btn-teal inline-block" href="https://valescabravo.github.io/lab/" target="_blank">Explore the Lab →</a></div>
           </div>
-          <div class="shrink-0 flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-1 md:text-right">
-            <p class="stat-num text-5xl md:text-6xl text-teal-300">14</p>
-            <div><p class="text-sm font-semibold text-gray-200">interactive tools</p><p class="text-xs text-teal-300/70">5 active categories</p></div>
-          </div>
+          <div class="shrink-0 flex flex-row md:flex-col items-center md:items-end gap-3"><p class="stat-num text-5xl md:text-6xl text-teal-300">14</p><div><p class="text-sm font-semibold text-gray-200">interactive tools</p><p class="text-xs text-teal-300/70">5 categories</p></div></div>
         </div>
       </div>
     </section>
@@ -463,13 +377,7 @@
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Profile</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">About</h2>
-      <div class="card p-6 mt-5">
-        <p class="text-sm md:text-base" style="color: var(--gray-dark); max-width: 80ch;">
-          Data Analyst with a Master's in Big Data &amp; Business Intelligence and a background in digital marketing.
-          I build decision-ready reporting in Power BI (DAX), supported by SQL and Python, with rigorous data cleaning, stakeholder reporting and practical data governance.
-          ICDL Data Protection certified.
-        </p>
-      </div>
+      <div class="card p-6 mt-5"><p class="text-sm md:text-base" style="color: var(--gray-dark); max-width: 80ch;"><strong class="text-navy-800">Data Analyst with a background in marketing.</strong> I hold a Master's in Big Data &amp; Business Intelligence (NFQ Level 9) and a Higher Diploma in Data Analytics (NFQ Level 8). I build decision-ready reporting in Power BI (DAX), supported by SQL and Python, with rigorous data cleaning, stakeholder reporting and practical data governance. ICDL Data Protection certified. 8+ years of experience across analytics, BI, and data operations — now focused on delivering insights that drive business value. Stamp 4 — authorised to work in Ireland without sponsorship. Immediately available.</p></div>
     </section>
 
     <!-- Recommendation -->
@@ -477,14 +385,10 @@
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Proof</p>
       <h2 class="text-3xl md:text-4xl font-extrabold mt-2">Recommendation</h2>
-      <div class="card p-6 mt-5">
-        <p class="text-lg font-extrabold">Open Doors Initiative — Digital Marketing with AI Programme</p>
-        <p class="mt-2 text-sm" style="color: var(--gray-dark);">Reference letter (Accenture collaboration).</p>
-        <a class="btn-teal inline-block mt-5" href="/recommendations/ODI_Reference.pdf" target="_blank" rel="noopener">View reference (PDF)</a>
-      </div>
+      <div class="card p-6 mt-5"><p class="text-lg font-extrabold">Open Doors Initiative — Digital Marketing with AI Programme</p><p class="mt-2 text-sm" style="color: var(--gray-dark);">Reference letter (Accenture collaboration).</p><a class="btn-teal inline-block mt-5" href="/recommendations/ODI_Reference.pdf" target="_blank">View reference (PDF)</a></div>
     </section>
 
-    <!-- Contact con loading state mejorado -->
+    <!-- Contact -->
     <section id="contact" class="pt-12">
       <div class="mt-10 rule"></div>
       <p class="kicker mt-10">Let's talk</p>
@@ -496,44 +400,21 @@
           <input name="name" required placeholder="Name" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);" />
           <input type="email" name="email" required placeholder="Email" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);" />
           <textarea name="message" required rows="6" placeholder="Message" class="w-full rounded-xl border px-4 py-3" style="border-color: rgba(29,8,94,0.18);"></textarea>
-          <div class="flex flex-wrap gap-3 items-center">
-            <button type="submit" class="btn-teal" id="submit-btn">Send message</button>
-            <a class="btn-primary" href="https://linkedin.com/in/valesca-bravo" target="_blank">Message on LinkedIn</a>
-          </div>
+          <div class="flex flex-wrap gap-3 items-center"><button type="submit" class="btn-teal" id="submit-btn">Send message</button><a class="btn-primary" href="https://linkedin.com/in/valesca-bravo" target="_blank">Message on LinkedIn</a></div>
           <p class="text-xs mt-2" style="color: var(--gray-med);">Powered by Formspree — your message goes directly to my inbox.</p>
         </form>
-        <div class="mt-5"><p class="text-sm" style="color: var(--gray-dark);">GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank">github.com/ValescaBravo</a></p><p class="text-sm mt-2" style="color: var(--gray-dark);">LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank">linkedin.com/in/valesca-bravo</a></p></div>
+        <div class="mt-5"><p class="text-sm" style="color: var(--gray-dark);">GitHub: <a class="link" href="https://github.com/ValescaBravo" target="_blank">github.com/ValescaBravo</a></p><p class="text-sm mt-2" style="color: var(--gray-dark);">LinkedIn: <a class="link" href="https://linkedin.com/in/valesca-bravo" target="_blank">linkedin.com/in/valesca-bravo</a></p><p class="text-sm mt-2" style="color: var(--gray-dark);">📍 Dublin, Ireland · Stamp 4 · Immediately available</p></div>
       </div>
     </section>
 
-    <!-- Footer mejorado (3 columnas) -->
+    <!-- Footer -->
     <footer class="pt-14 pb-8 mt-8 border-t border-teal-500/20">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-        <div>
-          <p class="font-extrabold text-teal-300 mb-2">Valesca Bravo</p>
-          <p class="opacity-70 text-xs">Data Analyst — CRM & Marketing Intelligence</p>
-        </div>
-        <div>
-          <p class="font-semibold text-teal-300 mb-2">Quick links</p>
-          <ul class="space-y-1 text-xs opacity-80">
-            <li><a href="#projects" class="hover:text-teal-300">Projects</a></li>
-            <li><a href="#lab" class="hover:text-teal-300">Interactive Lab</a></li>
-            <li><a href="#about" class="hover:text-teal-300">About</a></li>
-            <li><a href="#contact" class="hover:text-teal-300">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="font-semibold text-teal-300 mb-2">Connect</p>
-          <ul class="space-y-1 text-xs opacity-80">
-            <li><a href="https://github.com/ValescaBravo" target="_blank" class="hover:text-teal-300">GitHub</a></li>
-            <li><a href="https://linkedin.com/in/valesca-bravo" target="_blank" class="hover:text-teal-300">LinkedIn</a></li>
-            <li><a href="https://valescabravo.github.io/lab/" target="_blank" class="hover:text-teal-300">Interactive Lab</a></li>
-          </ul>
-        </div>
+        <div><p class="font-extrabold text-teal-300 mb-2">Valesca Bravo</p><p class="opacity-70 text-xs">Data Analyst · BI & Analytics</p><p class="opacity-60 text-xs mt-1">Stamp 4 · Dublin, Ireland</p></div>
+        <div><p class="font-semibold text-teal-300 mb-2">Quick links</p><ul class="space-y-1 text-xs opacity-80"><li><a href="#projects" class="hover:text-teal-300">Projects</a></li><li><a href="#lab" class="hover:text-teal-300">Interactive Lab</a></li><li><a href="#about" class="hover:text-teal-300">About</a></li><li><a href="#contact" class="hover:text-teal-300">Contact</a></li></ul></div>
+        <div><p class="font-semibold text-teal-300 mb-2">Connect</p><ul class="space-y-1 text-xs opacity-80"><li><a href="https://github.com/ValescaBravo" target="_blank" class="hover:text-teal-300">GitHub</a></li><li><a href="https://linkedin.com/in/valesca-bravo" target="_blank" class="hover:text-teal-300">LinkedIn</a></li><li><a href="https://valescabravo.github.io/lab/" target="_blank" class="hover:text-teal-300">Interactive Lab</a></li></ul></div>
       </div>
-      <div class="text-center text-xs opacity-60 mt-8 pt-4 border-t border-teal-500/10">
-        © 2026 Valesca Bravo · Naval & Teal palette · Data with purpose
-      </div>
+      <div class="text-center text-xs opacity-60 mt-8 pt-4 border-t border-teal-500/10">© 2026 Valesca Bravo · Data Analyst · Naval & Teal palette · Data with purpose · Stamp 4 — no sponsorship required</div>
     </footer>
   </main>
 
@@ -542,14 +423,7 @@
     if (form) {
       form.addEventListener('submit', function(e) {
         const btn = document.getElementById('submit-btn');
-        if (btn) {
-          btn.textContent = 'Sending...';
-          btn.disabled = true;
-          setTimeout(() => {
-            btn.textContent = 'Send message';
-            btn.disabled = false;
-          }, 3000);
-        }
+        if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; setTimeout(() => { btn.textContent = 'Send message'; btn.disabled = false; }, 3000); }
       });
     }
   </script>
