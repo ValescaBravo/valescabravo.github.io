@@ -1,8 +1,6 @@
 // ============================================
 // SCRIPT LOADER PARA TAGS DE ANALYTICS
 // ============================================
-// Este archivo carga todos los snippets de tracking
-// de manera ordenada y controlada
 
 (function() {
     'use strict';
@@ -12,8 +10,7 @@
     // ============================================
     // 1. GOOGLE TAG MANAGER (GTM)
     // ============================================
-   
-    const GTM_ID = 'GTM-KHLN3NSD'; 
+    const GTM_ID = 'GTM-KHLN3NSD';
 
     // Cargar GTM script
     (function(w,d,s,l,i){
@@ -27,19 +24,13 @@
         f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer',GTM_ID);
 
-    // Agregar el iframe de GTM (noscript) - solo para navegadores sin JS
-    // Este se agregará al body mediante un elemento oculto
-    const noscriptGTM = document.createElement('noscript');
-    noscriptGTM.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-    document.body.insertBefore(noscriptGTM, document.body.firstChild);
-
-    console.log('✅ GTM cargado correctamente');
+    console.log('✅ GTM cargado con ID:', GTM_ID);
 
     // ============================================
     // 2. MICROSOFT CLARITY
     // ============================================
-    // Reemplaza con tu ID de Clarity
-    const CLARITY_ID = 'tu-clarity-id-aqui'; // ← CAMBIA ESTO
+    // ✅ TU CLARITY ID REAL
+    const CLARITY_ID = 'x95rlwgutf'; //
 
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -50,35 +41,11 @@
         y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", CLARITY_ID);
 
-    console.log('✅ Clarity cargado correctamente');
+    console.log('✅ Clarity cargado con ID:', CLARITY_ID);
 
     // ============================================
-    // 3. GOOGLE ANALYTICS 4 (GA4)
+    // 3. HUBSPOT BADGE
     // ============================================
-    // NOTA: Si usas GTM, GA4 se carga desde GTM
-    // Si quieres cargarlo directamente, descomenta esto:
-    /*
-    const GA4_ID = 'G-XXXXXXXXXX'; // ← CAMBIA ESTO
-    
-    // Cargar GA4
-    (function() {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-        document.head.appendChild(script);
-        
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', GA4_ID);
-    })();
-    console.log('✅ GA4 cargado correctamente');
-    */
-
-    // ============================================
-    // 4. HUBSPOT BADGE
-    // ============================================
-    // Insertar el badge de HubSpot en el footer o donde quieras
     const badgeHTML = `
         <div class="hubspot-badge-container" style="margin: 20px 0; text-align: center;">
             <div class='academy-badge'>
@@ -103,29 +70,23 @@
     }
 
     function insertBadge() {
-        // Buscar un lugar para insertar el badge
-        // Opción 1: Si hay un footer
         const footer = document.querySelector('footer');
         if (footer) {
             footer.insertAdjacentHTML('beforeend', badgeHTML);
             console.log('✅ Badge HubSpot insertado en el footer');
-            return;
+        } else {
+            document.body.insertAdjacentHTML('beforeend', badgeHTML);
+            console.log('✅ Badge HubSpot insertado al final del body');
         }
-
-        // Opción 2: Al final del body
-        document.body.insertAdjacentHTML('beforeend', badgeHTML);
-        console.log('✅ Badge HubSpot insertado al final del body');
     }
 
     // ============================================
-    // 5. EVENTOS PERSONALIZADOS (Ejemplos)
+    // 4. EVENTOS PERSONALIZADOS (Ejemplos)
     // ============================================
-    // Puedes agregar eventos personalizados aquí
-    // Ejemplo: tracking de clics en enlaces
+    // Tracking de clics en enlaces externos
     document.addEventListener('click', function(e) {
-        const target = e.target;
-        // Tracking de clics en enlaces externos
-        if (target.tagName === 'A' && target.href && target.hostname !== window.location.hostname) {
+        const target = e.target.closest('a');
+        if (target && target.href && target.hostname !== window.location.hostname) {
             if (window.dataLayer) {
                 window.dataLayer.push({
                     'event': 'external_link_click',
@@ -137,10 +98,24 @@
         }
     });
 
+    // Tracking de tiempo en página (opcional)
+    let timeOnPage = 0;
+    setInterval(() => {
+        timeOnPage += 10;
+        if (timeOnPage % 30 === 0) { // Cada 30 segundos
+            if (window.dataLayer) {
+                window.dataLayer.push({
+                    'event': 'time_on_page',
+                    'seconds': timeOnPage
+                });
+            }
+        }
+    }, 10000);
+
     console.log('✅ Todos los tags cargados y listos!');
     console.log('📊 Verifica en:');
     console.log('  - GTM: https://tagassistant.google.com/');
     console.log('  - Clarity: https://clarity.microsoft.com/');
-    console.log('  - GA4: https://analytics.google.com/');
+    console.log('  - GA4: Debes configurarlo en GTM');
 
 })();
